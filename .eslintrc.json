@@ -1,0 +1,60 @@
+{
+	"root": true,
+	"extends": [
+	  "plugin:astro/recommended",
+	  "standard-with-typescript"
+	],
+	"overrides": [
+	  {
+		"files": ["*.astro"],
+		"parser": "astro-eslint-parser",
+		"parserOptions": {
+		  "parser": "@typescript-eslint/parser",
+		  "extraFileExtensions": [".astro"],
+		  "project": "./tsconfig.json",
+		  "sourceType": "module"
+		},
+		"rules": {
+        "no-tabs": "off",
+        "indent": ["error", "tab"],
+        
+        "quotes": ["error", "single"]
+      }
+	  },
+	  {
+		"files": ["*.ts", "*.tsx"],
+		"parserOptions": {
+		  "project": "./tsconfig.json",
+		  "sourceType": "module"
+		},
+		"rules": {
+			"no-tabs": "off",
+        "@typescript-eslint/indent": ["error", "tab"],
+		"@typescript-eslint/consistent-type-definitions": "off",
+  		"@typescript-eslint/quotes": ["error", "single"],
+		"@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
+		"import/order": [
+      		"error",
+      		{
+        		"groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
+        		"newlines-between": "always",
+        		"alphabetize": { "order": "asc", "caseInsensitive": true }
+      		}
+    			]
+      	}
+	  }
+	],
+	"plugins": ["@typescript-eslint"],
+	"env": {
+	  "browser": true,
+	  "es2022": true,
+	  "node": true
+	},
+	"rules": {
+	  
+	  "quotes": ["error", "single"],
+	  "indent": ["error", "tab"],
+	  "no-tabs": "off"
+	}
+  }
+  

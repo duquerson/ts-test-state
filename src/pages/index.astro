@@ -1,11 +1,7 @@
 ---
 
-import Counter from '../components/Counter';
-const someProps = {
-	count: 0,
-};
 import './src/styles/global.css'
-
+import { Counter } from '../components/Counter';
 ---
 
 <html lang="en">
@@ -27,7 +23,7 @@ import './src/styles/global.css'
 	</head>
 	<body>
 		<main>
-			<Counter {...someProps} client:visible>
+			<Counter client:visible>
 				<h1>Hello, React!</h1>
 			</Counter>
 		</main>

@@ -1,25 +1,20 @@
-import { useState } from 'react';
-import './Counter.css';
+import { useStore } from '../store/store.ts'
+import './Counter.css'
 
-export default function Counter({
-	children,
-	count: initialCount,
-}: {
-	children: JSX.Element;
-	count: number;
-}) {
-	const [count, setCount] = useState(initialCount);
-	const add = () => setCount((i) => i + 1);
-	const subtract = () => setCount((i) => i - 1);
+type CounterProps = {
+	children?: React.ReactNode
+}
 
+export const Counter: React.FC<CounterProps> = ({ children }) => {
+	const { count, increaseCount, decreaseCount } = useStore()
 	return (
 		<>
 			<div className="counter">
-				<button onClick={subtract}>-</button>
+				<button onClick={decreaseCount}>-</button>
 				<pre>{count}</pre>
-				<button onClick={add}>+</button>
+				<button onClick={increaseCount}>+</button>
 			</div>
 			<div className="counter-message">{children}</div>
 		</>
-	);
+	)
 }
