@@ -1,0 +1,19 @@
+---
+import '@fontsource/dm-serif-text';
+import '@fontsource/dm-serif-text/400-italic.css';
+import './src/styles/global.css'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	</head>
+	<body>
+		<main class="w-auto h-dvh bg-orange-500 text-lg grid place-content-center justify-items-center">
+			<slot />
+		</main>
+	</body>
+</html>

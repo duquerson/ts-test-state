@@ -1,0 +1,282 @@
+[
+	{
+	  "id": 1,
+	  "question": "¿Cuál será la salida por consola al ejecutar este código?",
+	  "code": "interface Persona {\n  nombre: string;\n  edad: number;\n  ciudad?: string;\n}\nconst usuario: Persona = {\n  nombre: \"Ana\",\n  edad: 30\n};\nconsole.log(usuario.ciudad);",
+	  "answers": ["null", "madrid", "Un error en tiempo de ejecución", "undefined"],
+	  "correctAnswer": 3
+	},
+	{
+	  "id": 2,
+	  "question": "¿Cuál es la forma correcta de declarar una variable con tipo string en TypeScript?",
+	  "code": "",
+	  "answers": ["let nombre = string('Juan');", "let nombre: string = 'Juan';", "let nombre: String = 'Juan';", "string nombre = 'Juan';"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 3,
+	  "question": "¿Qué significa el operador '?' en TypeScript?",
+	  "code": "interface Usuario {\n  nombre: string;\n  email?: string;\n}",
+	  "answers": ["Hace que la propiedad sea de solo lectura", "Hace que la propiedad sea opcional", "Hace que la propiedad sea privada", "Hace que la propiedad sea estática"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 4,
+	  "question": "¿Cuál será el tipo inferido de la variable 'resultado'?",
+	  "code": "let resultado = 5 + 3;",
+	  "answers": ["any", "string", "number", "unknown"],
+	  "correctAnswer": 2
+	},
+	{
+	  "id": 5,
+	  "question": "¿Qué sucede al ejecutar este código?",
+	  "code": "let edad: number = '25';",
+	  "answers": ["Se ejecuta correctamente", "Se convierte automáticamente a number", "Error de compilación", "Se asigna undefined"],
+	  "correctAnswer": 2
+	},
+	{
+	  "id": 6,
+	  "question": "¿Cuál es la salida de este código?",
+	  "code": "let activo: boolean = true;\nlet mensaje = activo ? 'Sí' : 'No';\nconsole.log(mensaje);",
+	  "answers": ["true", "Sí", "No", "1"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 7,
+	  "question": "¿Cómo se declara un array de números en TypeScript?",
+	  "code": "",
+	  "answers": ["let numeros: number[] = [1,2,3];", "let numeros: Array<number> = [1,2,3];", "let numeros: [number] = [1,2,3];", "Ambas son correctas"],
+	  "correctAnswer": 3
+	},
+	{
+	  "id": 8,
+	  "question": "¿Qué tipo tiene la variable 'datos'?",
+	  "code": "let datos = [1, 'hello', true];",
+	  "answers": ["any[]", "(number | string | boolean)[]", "Array<any>", "mixed[]"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 9,
+	  "question": "¿Cuál es el resultado de este código?",
+	  "code": "function saludar(nombre: string): string {\n  return `Hola, ${nombre}!`;\n}\nconsole.log(saludar('María'));",
+	  "answers": ["Hola, María!", "Hola, ${nombre}!", "Error de compilación", "undefined"],
+	  "correctAnswer": 0
+	},
+	{
+	  "id": 10,
+	  "question": "¿Qué significa 'void' como tipo de retorno?",
+	  "code": "function mostrarMensaje(): void {\n  console.log('Mensaje');\n}",
+	  "answers": ["Retorna null", "Retorna undefined", "Retorna una cadena vacía", "No retorna nada"],
+	  "correctAnswer": 3
+	},
+	{
+	  "id": 11,
+	  "question": "¿Cuál es la diferencia entre 'let' y 'const' en TypeScript?",
+	  "code": "",
+	  "answers": ["No hay diferencia", "let es para tipos primitivos, const para objetos", "const es más rápido que let", "const crea variables inmutables, let permite reasignación"],
+	  "correctAnswer": 3
+	},
+	{
+	  "id": 12,
+	  "question": "¿Qué sucede con este código?",
+	  "code": "const persona = {\n  nombre: 'Juan',\n  edad: 25\n};\npersona.edad = 26;",
+	  "answers": ["Error de compilación", "Se ejecuta correctamente", "Se crea una nueva variable", "undefined"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 13,
+	  "question": "¿Cuál es la forma correcta de definir una tupla?",
+	  "code": "",
+	  "answers": ["let tupla: [string, number] = ['Juan', 25];", "let tupla: (string, number) = ['Juan', 25];", "let tupla: string, number = ['Juan', 25];", "let tupla: Array<string|number> = ['Juan', 25];"],
+	  "correctAnswer": 0
+	},
+	{
+	  "id": 14,
+	  "question": "¿Qué imprime este código?",
+	  "code": "let coordenadas: [number, number] = [10, 20];\nconsole.log(coordenadas[0]);",
+	  "answers": ["20", "10", "[10, 20]", "Error"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 15,
+	  "question": "¿Cuál es el tipo de la variable 'valor'?",
+	  "code": "let valor: string | number = 'Hello';",
+	  "answers": ["string", "number", "string | number", "any"],
+	  "correctAnswer": 2
+	},
+	{
+	  "id": 16,
+	  "question": "¿Qué es un enum en TypeScript?",
+	  "code": "enum Color {\n  Rojo,\n  Verde,\n  Azul\n}",
+	  "answers": ["Una función especial", "Una clase abstracta", "Un tipo de variable", "Un tipo de dato que define constantes nombradas"],
+	  "correctAnswer": 3
+	},
+	{
+	  "id": 17,
+	  "question": "¿Cuál es el valor de Color.Verde?",
+	  "code": "enum Color {\n  Rojo,\n  Verde,\n  Azul\n}",
+	  "answers": ["0", "1", "2", "'Verde'"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 18,
+	  "question": "¿Cómo se define una interfaz básica?",
+	  "code": "",
+	  "answers": ["interface Persona { nombre: string; }", "class Persona { nombre: string; }", "Las opciones 1 y 3 son correctas", "type Persona = { nombre: string; }"],
+	  "correctAnswer": 2
+	},
+	{
+	  "id": 19,
+	  "question": "¿Qué sucede al ejecutar este código?",
+	  "code": "interface Vehiculo {\n  marca: string;\n  modelo: string;\n}\nconst auto: Vehiculo = {\n  marca: 'Toyota'\n};",
+	  "answers": ["Se ejecuta correctamente", "Error: falta la propiedad 'modelo'", "Se asigna undefined a modelo", "Se crea con valores por defecto"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 20,
+	  "question": "¿Cuál es la diferencia entre 'any' y 'unknown'?",
+	  "code": "",
+	  "answers": ["No hay diferencia", "any es más restrictivo que unknown", "unknown requiere verificación de tipo antes de usar", "any es para objetos, unknown para primitivos"],
+	  "correctAnswer": 2
+	},
+	{
+	  "id": 21,
+	  "question": "¿Qué imprime este código?",
+	  "code": "let variable: any = 'Hola';\nvariable = 42;\nconsole.log(typeof variable);",
+	  "answers": ["string", "number", "any", "Error"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 22,
+	  "question": "¿Cómo se define un parámetro opcional en una función?",
+	  "code": "",
+	  "answers": ["function saludar(nombre: string, apellido?: string)", "function saludar(nombre: string, apellido: string?)", "function saludar(nombre: string, ?apellido: string)", "function saludar(nombre: string, apellido: optional string)"],
+	  "correctAnswer": 0
+	},
+	{
+	  "id": 23,
+	  "question": "¿Cuál es la salida de este código?",
+	  "code": "function multiplicar(a: number, b: number = 2): number {\n  return a * b;\n}\nconsole.log(multiplicar(5));",
+	  "answers": ["5", "10", "Error", "undefined"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 24,
+	  "question": "¿Qué tipo tiene el parámetro 'opciones'?",
+	  "code": "function configurar(opciones: { tema: string; idioma?: string }) {\n  // código\n}",
+	  "answers": ["object", "any", "{ tema: string; idioma?: string }", "unknown"],
+	  "correctAnswer": 2
+	},
+	{
+	  "id": 25,
+	  "question": "¿Cuál es la forma correcta de extender una interfaz?",
+	  "code": "",
+	  "answers": ["interface Empleado extends Persona { salario: number; }", "interface Empleado implements Persona { salario: number; }", "interface Empleado inherits Persona { salario: number; }", "interface Empleado : Persona { salario: number; }"],
+	  "correctAnswer": 0
+	},
+	{
+	  "id": 26,
+	  "question": "¿Qué sucede con este código?",
+	  "code": "interface Animal {\n  nombre: string;\n}\ninterface Perro extends Animal {\n  raza: string;\n}\nconst miPerro: Perro = {\n  nombre: 'Max',\n  raza: 'Labrador'\n};",
+	  "answers": ["Error de compilación", "Se ejecuta correctamente", "Falta el tipo Animal", "undefined"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 27,
+	  "question": "¿Cómo se define un type alias?",
+	  "code": "",
+	  "answers": ["alias Punto = { x: number; y: number; };", "type Punto = { x: number; y: number; };", "define Punto = { x: number; y: number; };", "typedef Punto = { x: number; y: number; };"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 28,
+	  "question": "¿Cuál es la diferencia entre 'interface' y 'type'?",
+	  "code": "",
+	  "answers": ["No hay diferencia", "interface solo para objetos, type para primitivos", "interface puede extenderse, type no", "interface es más flexible para objetos"],
+	  "correctAnswer": 3
+	},
+	{
+	  "id": 29,
+	  "question": "¿Qué imprime este código?",
+	  "code": "class Persona {\n  nombre: string;\n  \n  constructor(nombre: string) {\n    this.nombre = nombre;\n  }\n}\nconst p = new Persona('Ana');\nconsole.log(p.nombre);",
+	  "answers": ["Ana", "undefined", "Error", "null"],
+	  "correctAnswer": 0
+	},
+	{
+	  "id": 30,
+	  "question": "¿Cuál es el modificador de acceso por defecto en TypeScript?",
+	  "code": "class Ejemplo {\n  propiedad: string = 'test';\n}",
+	  "answers": ["private", "public", "protected", "readonly"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 31,
+	  "question": "¿Qué sucede al ejecutar este código?",
+	  "code": "class Cuenta {\n  private saldo: number = 0;\n}\nconst cuenta = new Cuenta();\nconsole.log(cuenta.saldo);",
+	  "answers": ["0", "undefined", "Error de compilación", "null"],
+	  "correctAnswer": 2
+	},
+	{
+	  "id": 32,
+	  "question": "¿Cómo se define una propiedad de solo lectura?",
+	  "code": "",
+	  "answers": ["readonly nombre: string;", "const nombre: string;", "final nombre: string;", "immutable nombre: string;"],
+	  "correctAnswer": 0
+	},
+	{
+	  "id": 33,
+	  "question": "¿Qué es un generic en TypeScript?",
+	  "code": "function identidad<T>(arg: T): T {\n  return arg;\n}",
+	  "answers": ["Una función especial", "Un tipo que se puede parametrizar", "Una clase abstracta", "Un método estático"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 34,
+	  "question": "¿Cuál es el resultado de este código?",
+	  "code": "function identidad<T>(arg: T): T {\n  return arg;\n}\nconsole.log(identidad<string>('Hola'));",
+	  "answers": ["string", "Hola", "Error", "undefined"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 35,
+	  "question": "¿Cómo se define un array genérico?",
+	  "code": "",
+	  "answers": ["Array<T>", "T[]", "Ambas son correctas", "Generic<T>"],
+	  "correctAnswer": 2
+	},
+	{
+	  "id": 36,
+	  "question": "¿Qué hace el operador 'typeof' en TypeScript?",
+	  "code": "const persona = { nombre: 'Juan', edad: 30 };\ntype TipoPersona = typeof persona;",
+	  "answers": ["Obtiene el tipo de una variable", "Convierte a string", "Verifica si es un objeto", "Clona el objeto"],
+	  "correctAnswer": 0
+	},
+	{
+	  "id": 37,
+	  "question": "¿Qué es keyof en TypeScript?",
+	  "code": "interface Persona {\n  nombre: string;\n  edad: number;\n}\ntype ClavePersona = keyof Persona;",
+	  "answers": ["Un operador para obtener las claves de un tipo", "Un método para crear objetos", "Una función de validación", "Un tipo de variable"],
+	  "correctAnswer": 0
+	},
+	{
+	  "id": 38,
+	  "question": "¿Cuál es el valor de ClavePersona?",
+	  "code": "interface Persona {\n  nombre: string;\n  edad: number;\n}\ntype ClavePersona = keyof Persona;",
+	  "answers": ["string", "'nombre' | 'edad'", "Persona", "object"],
+	  "correctAnswer": 1
+	},
+	{
+	  "id": 39,
+	  "question": "¿Qué hace el operador 'in' en TypeScript?",
+	  "code": "type PropiedadPersona = 'nombre' in Persona;",
+	  "answers": ["Verifica si una propiedad existe en un tipo", "Añade una propiedad a un tipo", "Elimina una propiedad de un tipo", "Convierte a string"],
+	  "correctAnswer": 0
+	},
+	{
+	  "id": 40,
+	  "question": "¿Qué es una Union Type?",
+	  "code": "let valor: string | number;",
+	  "answers": ["Un tipo genérico", "Un tipo que puede ser uno de varios tipos", "Un tipo que combina propiedades", "Un tipo de función"],
+	  "correctAnswer": 1
+	}
+]

@@ -1,1 +1,11 @@
+@font-face {
+	font-family: 'Segoe_UI';
+	src: url('/fonts/segoe-ui-4/segoe-UI.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+  }
 @import "tailwindcss";
+body{
+	font-family: 'Segoe_UI', sans-serif;
+}
