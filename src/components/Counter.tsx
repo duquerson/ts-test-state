@@ -1,20 +1,10 @@
 import { useStore } from '../store/store.ts'
 
+export const Counter: React.FC = () => {
 
-type CounterProps = {
-	children?: React.ReactNode
-}
-
-export const Counter: React.FC<CounterProps> = ({ children }) => {
-	const { count, increaseCount, decreaseCount } = useStore()
 	return (
 		<>
-			<div className="w-2xs h-40 flex justify-center p-3 items-center">
-				<button onClick={decreaseCount}>-</button>
-				<pre>{count}</pre>
-				<button onClick={increaseCount}>+</button>
-			</div>
-			<div className="font-normal ">{children}</div>
+			<button className='rounded-2xl border-white h-10 w-28 text-white bg-blue-950/55 font-bold tracking-widest mt-9 cursor-pointer hover:bg-black/50' onClick={()=>{}}>¡Start!</button>
 		</>
 	)
 }

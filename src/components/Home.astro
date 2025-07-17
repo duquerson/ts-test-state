@@ -1,0 +1,13 @@
+---
+import { Counter } from "./Counter"
+---
+<section class="w-xl h-96 backdrop-blur backdrop-saturate-200 bg-white/20 border border-white/10 rounded-xl flex flex-col justify-center items-center">
+	<div class="flex justify-center items-center mb-4">
+		<img src="/src/assets/logo-ts.svg" alt="logo typescript">
+		<h1 class="text-white text-4xl text-balance font-bold tracking-widest ml-2 self-baseline-last">TypeScript Quizz</h1>
+	</div>
+
+	<div class="flex justify-center">
+		<Counter client:visible/>
+	</div>
+</section>
