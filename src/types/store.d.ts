@@ -1,4 +1,4 @@
-type question = {
+export type QuestionType = {
 	id: number,
 	question: string,
 	code: string,
