@@ -1,4 +1,4 @@
-import {CardQuizz} from './CardQuizz'
+import {CardQuiz} from './CardQuiz'
 import {
   QueryClient,
   QueryClientProvider,
@@ -10,7 +10,7 @@ export const IntroQuiz: React.FC  = ()=>{
 	return (
 	<>
 		<QueryClientProvider client={queryClient}>
-			<CardQuizz />
+			<CardQuiz />
 			<ReactQueryDevtools />
 		</QueryClientProvider>
 		

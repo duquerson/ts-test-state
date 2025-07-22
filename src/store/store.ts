@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-const TOTAL_QUESTIONS = 40;
+
 
 type StoreState = {
 	indexQuestion: number
@@ -13,5 +13,5 @@ type StoreState = {
 export const useStore = create<StoreState>((set) => ({ // return always object
 	indexQuestion: 0,
 	increaseQuestion: () => { set((state) => ({ indexQuestion: state.indexQuestion + 1 })) },
-	decreaseQuestion: () => { set((state) => ({ indexQuestion: state.indexQuestion - 1 })) }
+	decreaseQuestion: () => { set((state) => ({ indexQuestion: Math.max(state.indexQuestion - 1 ,0)})) }
 }))
