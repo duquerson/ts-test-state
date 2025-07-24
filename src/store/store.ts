@@ -16,10 +16,10 @@ export const useStore = create<StoreState>((set) => ({ // return always object
 	resetQuizUI: () => set({ indexQuestion: 0, answeredQuestions: {} }),
 	increaseQuestion: () => { set((state) => ({ indexQuestion: state.indexQuestion + 1 })) },
 	decreaseQuestion: () => { set((state) => ({ indexQuestion: Math.max(state.indexQuestion - 1 ,0)})) },
-	answerQuestion: (Id, Index) => set((state) => ({ 
+	answerQuestion: (questionId, answerId) => set((state) => ({ 
 		answeredQuestions: { 
 		  ...state.answeredQuestions, 
-		  [Id]: Index,   
+		  [questionId]: answerId,   
 		},
 	  })),
 }))

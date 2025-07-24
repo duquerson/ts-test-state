@@ -1,4 +1,4 @@
-type AnswerClass = {
+type GetAnswerButtonClassesFunction = {
 	getAnswerButtonClasses: (
 	  hasBeenAnswered: boolean,
 	  isCorrectAnswer: boolean,
@@ -6,7 +6,7 @@ type AnswerClass = {
 	) => string;
   };
   
-   export const getAnswerButtonClasses: AnswerClass['getAnswerButtonClasses'] = (
+   export const getAnswerButtonClasses: GetAnswerButtonClassesFunction['getAnswerButtonClasses'] = (
 	hasBeenAnswered,
 	isCorrectAnswer,
 	isUserAnswer
