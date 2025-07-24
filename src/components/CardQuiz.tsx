@@ -3,8 +3,8 @@ import { getQuizquestions} from "../services/fetchData";
 import { Question } from "./Question";
 import { useStore } from "../store/store";
 import { BASE_CONTAINER, BUTTON_DIRECTIONS, CARD_CONTAINER, DISABLE_CLASS } from "../const/CONST";
-import IsQuizLoanding from './IsQuizLoanding.astro'
-import IsQuizError from "./IsQuizError.astro";
+import IsQuizLoanding from './IsQuizLoanding'
+import IsQuizError from "./IsQuizError";
 
 export const CardQuiz: React.FC = () => {
   const { 
