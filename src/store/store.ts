@@ -3,7 +3,7 @@ import { create } from 'zustand';
 
 type StoreState = {
 	indexQuestion: number
-	answeredQuestions: {[key: number]: number | null}
+	answeredQuestions: {[key: number]: number | null | undefined}
 	resetQuizUI: ()=> void
 	increaseQuestion: () => void
 	decreaseQuestion: () => void

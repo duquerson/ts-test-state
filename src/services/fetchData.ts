@@ -1,8 +1,9 @@
 
 import axios from "axios";
 import type { QuestionType } from "../types/store";
+
 export const questions = () => {
-  return axios.get('../data/dataQ.json')
+  return axios.get('/mockups/dataQ.json')
     .then((response) => {
       if(!response.data){
 		throw Error('empty')
