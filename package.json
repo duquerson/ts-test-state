@@ -9,13 +9,14 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint . --ext .ts,.tsx,.astro",
-    "lint:fix": "eslint . --ext .ts,.tsx,.astro --fix"
+    "lint:fix": "eslint . --ext .ts,.tsx,.astro --fix",
+    "test": "vitest"
   },
   "dependencies": {
     "@astrojs/react": "~4.3.0",
     "@tailwindcss/vite": "~4.1.11",
-    "@tanstack/react-query": "^5.83.0",
-    "@tanstack/react-query-devtools": "^5.83.0",
+    "@tanstack/react-query": "~5.83.0",
+    "@tanstack/react-query-devtools": "~5.83.0",
     "@types/react": "~18.3.20",
     "@types/react-dom": "~18.3.6",
     "astro": "~5.11.0",
@@ -27,7 +28,8 @@
     "zustand": "~5.0.6"
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^5.81.2",
+    "@tanstack/eslint-plugin-query": "~5.81.2",
+    "@testing-library/react": "~16.3.0",
     "@typescript-eslint/eslint-plugin": "~6.21.0",
     "@typescript-eslint/parser": "~6.21.0",
     "eslint": "~8.57.1",
@@ -36,6 +38,7 @@
     "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-n": "~16.6.2",
     "eslint-plugin-promise": "~6.6.0",
-    "typescript": "~5.3.3"
+    "typescript": "5.3.3",
+    "vitest": "~3.2.4"
   }
 }
