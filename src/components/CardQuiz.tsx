@@ -1,20 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
-import { getQuizquestions} from "../services/fetchData";
+import { getQuizQuestions } from "../services/quiz.service";
 import { Question } from "./Question";
 import { useStore } from "../store/store";
 import { BASE_CONTAINER, BUTTON_DIRECTIONS, CARD_CONTAINER, DISABLE_CLASS } from "../const/CONST";
 import IsQuizLoanding from './IsQuizLoanding'
-import IsQuizError from "./IsQuizError";
+import {IsQuizEmpty} from "./IsQuizEmpty"; 
+import {IsQuizError} from "./IsQuizError";
+import { getQuizErrorMessage } from "../utils/errorHelpers";
+import type { QuestionType } from "../types/store";
+import type {FetchError} from "../types/api" 
 
 export const CardQuiz: React.FC = () => {
   const { 
     data: quizData, 
     isLoading: isQuizLoading, 
     isError: isQuizError,
+	error: quizError,
     refetch 
-  } = useQuery({
+  } = useQuery<QuestionType[], FetchError>({
     queryKey: ['QUIZ_QUESTIONS'],
-    queryFn: getQuizquestions,
+    queryFn: getQuizQuestions,
     staleTime: 60 * 1000
   });
   
@@ -25,16 +30,18 @@ export const CardQuiz: React.FC = () => {
       <IsQuizLoanding />
     );
   }
-
   if (isQuizError) {
-    return (
-      <IsQuizError />
-    );
+	const errorMessage = getQuizErrorMessage(quizError);
+	if (errorMessage) {
+	  return <IsQuizError message={errorMessage} onRetry={refetch}
+	  retryText="Reload Quiz" />;
+	}
+	return null;
   }
 
   if (!quizData || quizData.length === 0) {
     return (
-		<IsQuizError />
+      <IsQuizEmpty message="No quiz questions available at the moment." />
     );
   }
 

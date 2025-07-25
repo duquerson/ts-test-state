@@ -1,10 +1,3 @@
-export type QuestionType = {
-	id: number,
-	question: string,
-	code: string | null,
-	answer: {
-		id: number
-		text: string,
-	}[],
-	correctAnswer: number
-}
+import {QuestionSchema} from '../schemas/question.schema'
+
+export type QuestionType = z.infer<typeof QuestionSchema>;

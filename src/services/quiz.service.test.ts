@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import axios from 'axios';
-import { getQuizquestions } from './fetchData';
+import { getQuizquestions } from './quiz.service';
 
 // Mock axios
 vi.mock('axios');
