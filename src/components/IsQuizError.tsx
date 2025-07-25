@@ -1,13 +1,13 @@
 import { BASE_CONTAINER, CARD_CONTAINER } from "../const/CONST";
 
 type Props = {
-  message: string;
+  message?: string;
   onRetry?: () => void;
   retryText?: string;
 }
 
 export const IsQuizError: React.FC<Props> = ({
-  message,
+  message = 'An unexpected error occurred.',
   onRetry,
   retryText = "Try Again"
 }) => {

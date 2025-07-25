@@ -1,104 +1,110 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { CardQuiz } from './CardQuiz'; // Import the component
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useStore } from '../store/store';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CardQuiz } from '../CardQuiz';
+import { useStore } from '../../store/store';
+import * as quizService from '../../services/quiz.service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock the hooks
-vi.mock('@tanstack/react-query', () => ({
-  useQuery: vi.fn(),
+// Mocks
+vi.mock('../../services/quiz.service', () => ({
+  getQuizQuestions: vi.fn(),
 }));
 
-vi.mock('../store/store', () => ({
-  useStore: vi.fn(),
+vi.mock('../IsQuizLoanding', () => ({
+  default: () => <div>Loading...</div>,
 }));
 
-describe('CardQuiz', () => {
-  it('should render loading state initially', () => {
-    // Mock the useQuery hook to return loading state
-    (useQuery as any).mockReturnValue({
-      data: undefined,
-      isLoading: true,
-      isError: false,
-      refetch: vi.fn(),
-    });
+vi.mock('../IsQuizEmpty', () => ({
+  IsQuizEmpty: ({ message }: { message: string }) => <div>{message}</div>,
+}));
 
-    // Mock the useStore hook (provide minimal required state and actions)
-    (useStore as any).mockReturnValue({
-      indexQuestion: 0,
-      answeredQuestions: {}, // Provide answeredQuestions
-      decreaseQuestion: vi.fn(),
-      increaseQuestion: vi.fn(),
-      resetQuizUI: vi.fn(),
-    });
+vi.mock('../IsQuizError', () => ({
+  IsQuizError: ({ message, onRetry }: { message: string; onRetry?: () => void }) => (
+    <div>
+      <div>{message}</div>
+      {onRetry && <button onClick={onRetry}>Retry</button>}
+    </div>
+  ),
+}));
 
-    render(React.createElement(CardQuiz, null)); // Render without props
+vi.mock('../Question', () => ({
+  Question: ({ currentQuestion }: any) => <div>{currentQuestion.question}</div>,
+}));
 
-    // Check if the loading component is rendered with the correct text
-    expect(screen.getByText('Cargando preguntas...')).toBeDefined();
+// Reset Zustand store before each test
+beforeEach(() => {
+  const { getState } = useStore;
+  getState().resetQuizUI?.();
+});
+
+// Util: render with React Query client
+const renderWithClient = (ui: React.ReactElement) => {
+  const queryClient = new QueryClient();
+  return render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>);
+};
+
+describe('CardQuiz Component', () => {
+  it('renders loading state', () => {
+    vi.spyOn(quizService, 'getQuizQuestions').mockReturnValue(new Promise(() => {}));
+    renderWithClient(<CardQuiz />);
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
-  it('should render error state if fetching fails', () => {
-    // Mock useQuery to return an error state
-    (useQuery as any).mockReturnValue({
-      data: undefined,
-      isLoading: false,
-      isError: true,
-      refetch: vi.fn(),
+  it('renders error state with retry button', async () => {
+    const refetchMock = vi.fn();
+    vi.spyOn(quizService, 'getQuizQuestions').mockRejectedValue({
+      statusCode: 500,
+      message: 'Internal Error',
     });
 
-    // Mock useStore
-    (useStore as any).mockReturnValue({
-      indexQuestion: 0,
-      answeredQuestions: {}, // Provide answeredQuestions
-      decreaseQuestion: vi.fn(),
-      increaseQuestion: vi.fn(),
-      resetQuizUI: vi.fn(),
-    });
+    renderWithClient(<CardQuiz />);
+    expect(await screen.findByText(/server encountered an error/i)).toBeInTheDocument();
 
-    render(React.createElement(CardQuiz, null)); // Render without props
-
-    // Check if the error component is rendered with the correct text
-    expect(screen.getByText('404 not found')).toBeDefined();
+    const retryButton = await screen.findByText('Retry');
+    expect(retryButton).toBeInTheDocument();
+    fireEvent.click(retryButton);
+    // No assertion for now since `refetch` is from TanStack's hook
   });
 
-  it('should render the quiz questions when data is loaded', () => {
-    // Mock useQuery to return loaded data
-    const mockQuizData = [
-      {
-        id: 1,
-        question: 'What is the capital of France?',
-        answer: ['London', 'Berlin', 'Paris', 'Madrid'],
-        correctAnswer: 2,
-      },
-      // Add more mock questions as needed
-    ];
-    (useQuery as any).mockReturnValue({
-      data: mockQuizData,
-      isLoading: false,
-      isError: false,
-      refetch: vi.fn(),
-    });
+  it('renders empty state', async () => {
+    vi.spyOn(quizService, 'getQuizQuestions').mockResolvedValue([]);
 
-    // Mock useStore
-    (useStore as any).mockReturnValue({
-      indexQuestion: 0,
-      answeredQuestions: {}, // Provide answeredQuestions
-      decreaseQuestion: vi.fn(),
-      increaseQuestion: vi.fn(),
-      resetQuizUI: vi.fn(),
-    });
-
-    render(React.createElement(CardQuiz, null)); // Render without props
-
-    // Check if the first question is rendered
-    expect(screen.getByText('What is the capital of France?')).toBeDefined();
-    // Check if answer options are rendered (you might need to adjust this based on how AnswerQuestion renders)
-    // You might need to mock the AnswerQuestion component or provide more detailed mock data
-    // to accurately test the rendering of answer options.
-    // For now, let's just check for the question text.
+    renderWithClient(<CardQuiz />);
+    expect(await screen.findByText(/no quiz questions available/i)).toBeInTheDocument();
   });
 
-  // Add more test cases to cover button interactions, navigation, etc.
+  it('renders quiz and handles navigation buttons', async () => {
+    vi.spyOn(quizService, 'getQuizQuestions').mockResolvedValue([
+      { id: 1, question: 'Question 1', code: null, answer: [], correctAnswer: 0 },
+      { id: 2, question: 'Question 2', code: null, answer: [], correctAnswer: 1 },
+    ]);
+
+    renderWithClient(<CardQuiz />);
+
+    // Render first question
+    expect(await screen.findByText('Question 1')).toBeInTheDocument();
+
+    const nextBtn = screen.getByRole('button', { name: /next/i });
+    fireEvent.click(nextBtn);
+    expect(await screen.findByText('Question 2')).toBeInTheDocument();
+
+    const prevBtn = screen.getByRole('button', { name: /previous/i });
+    fireEvent.click(prevBtn);
+    expect(await screen.findByText('Question 1')).toBeInTheDocument();
+  });
+
+  it('resets quiz with "Reset Quiz" button', async () => {
+    vi.spyOn(quizService, 'getQuizQuestions').mockResolvedValue([
+      { id: 1, question: 'Question 1', code: null, answer: [], correctAnswer: 0 },
+    ]);
+
+    renderWithClient(<CardQuiz />);
+    expect(await screen.findByText('Question 1')).toBeInTheDocument();
+
+    const resetBtn = screen.getByRole('button', { name: /reset quiz/i });
+    fireEvent.click(resetBtn);
+
+    // After reset, it should re-render same question (since data doesn't change)
+    expect(await screen.findByText('Question 1')).toBeInTheDocument();
+  });
 });
