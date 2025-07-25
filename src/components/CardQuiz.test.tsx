@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { CardQuiz } from '../CardQuiz';
-import { useStore } from '../../store/store';
-import * as quizService from '../../services/quiz.service';
+import { CardQuiz } from './CardQuiz'; // Corrected import path
+import { useStore } from '../store/store';
+import {getQuizQuestions as quizService}  from '../services/quiz.service';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mocks

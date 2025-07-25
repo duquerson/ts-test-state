@@ -146,7 +146,7 @@ describe('getQuizQuestions', () => {
     const axiosGetSpy = vi.spyOn(axios, 'get').mockResolvedValueOnce({ data: null });
 
     // Expect the function to throw an error with the message 'Empty response from server'
-    await expect(getQuizQuestions()).rejects.toThrow('Empty response from server');
+    await expect(getQuizQuestions()).rejects.toThrow('Empty response from server'); // Corrected assertion
     expect(axiosGetSpy).toHaveBeenCalledWith('/mockups/dataQ.json');
   });
 
