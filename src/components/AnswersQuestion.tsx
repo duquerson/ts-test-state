@@ -16,7 +16,7 @@ export const AnswersQuestion = ({answer, correctAnswer}:AnswersQuestionProps)=>{
 	return (
 	<section className="flex-1 flex items-start">
 	<ul className="space-y-3 w-full">
-	  {answer.map((option) => {
+	  {answer.map((option:QuestionType['answer']) => {
 		// Determina si esta opción es la respuesta correcta
 		// Compara el ID de la opción actual con el ID de la respuesta correcta
 		const isCorrectAnswer = option.id === correctAnswer;
