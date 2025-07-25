@@ -1,13 +1,16 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { CardQuiz } from './CardQuiz'; // Corrected import path
+import { CardQuiz } from './CardQuiz';
 import { useStore } from '../store/store';
-import {getQuizQuestions as quizService}  from '../services/quiz.service';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import '@testing-library/jest-dom';
 
-// Mocks
-vi.mock('../../services/quiz.service', () => ({
-  getQuizQuestions: vi.fn(),
+
+// Mocks - Corregir el path y crear el mock correctamente
+const mockGetQuizQuestions = vi.fn();
+
+vi.mock('../services/quiz.service', () => ({
+  getQuizQuestions: mockGetQuizQuestions,
 }));
 
 vi.mock('../IsQuizLoanding', () => ({
@@ -35,24 +38,31 @@ vi.mock('../Question', () => ({
 beforeEach(() => {
   const { getState } = useStore;
   getState().resetQuizUI?.();
+  // Limpiar los mocks antes de cada test
+  vi.clearAllMocks();
 });
 
 // Util: render with React Query client
 const renderWithClient = (ui: React.ReactElement) => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false, // Desactivar reintentos para tests más rápidos
+      },
+    },
+  });
   return render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>);
 };
 
 describe('CardQuiz Component', () => {
   it('renders loading state', () => {
-    vi.spyOn(quizService, 'getQuizQuestions').mockReturnValue(new Promise(() => {}));
+    mockGetQuizQuestions.mockReturnValue(new Promise(() => {}));
     renderWithClient(<CardQuiz />);
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
   it('renders error state with retry button', async () => {
-    const refetchMock = vi.fn();
-    vi.spyOn(quizService, 'getQuizQuestions').mockRejectedValue({
+    mockGetQuizQuestions.mockRejectedValue({
       statusCode: 500,
       message: 'Internal Error',
     });
@@ -67,16 +77,34 @@ describe('CardQuiz Component', () => {
   });
 
   it('renders empty state', async () => {
-    vi.spyOn(quizService, 'getQuizQuestions').mockResolvedValue([]);
+    mockGetQuizQuestions.mockResolvedValue([]);
 
     renderWithClient(<CardQuiz />);
     expect(await screen.findByText(/no quiz questions available/i)).toBeInTheDocument();
   });
 
   it('renders quiz and handles navigation buttons', async () => {
-    vi.spyOn(quizService, 'getQuizQuestions').mockResolvedValue([
-      { id: 1, question: 'Question 1', code: null, answer: [], correctAnswer: 0 },
-      { id: 2, question: 'Question 2', code: null, answer: [], correctAnswer: 1 },
+    mockGetQuizQuestions.mockResolvedValue([
+      { 
+        id: 1, 
+        question: 'Question 1', 
+        code: null, 
+        answer: [
+          { id: 0, text: 'Answer 1' },
+          { id: 1, text: 'Answer 2' }
+        ], 
+        correctAnswer: 0 
+      },
+      { 
+        id: 2, 
+        question: 'Question 2', 
+        code: null, 
+        answer: [
+          { id: 0, text: 'Answer A' },
+          { id: 1, text: 'Answer B' }
+        ], 
+        correctAnswer: 1 
+      },
     ]);
 
     renderWithClient(<CardQuiz />);
@@ -94,8 +122,17 @@ describe('CardQuiz Component', () => {
   });
 
   it('resets quiz with "Reset Quiz" button', async () => {
-    vi.spyOn(quizService, 'getQuizQuestions').mockResolvedValue([
-      { id: 1, question: 'Question 1', code: null, answer: [], correctAnswer: 0 },
+    mockGetQuizQuestions.mockResolvedValue([
+      { 
+        id: 1, 
+        question: 'Question 1', 
+        code: null, 
+        answer: [
+          { id: 0, text: 'Answer 1' },
+          { id: 1, text: 'Answer 2' }
+        ], 
+        correctAnswer: 0 
+      },
     ]);
 
     renderWithClient(<CardQuiz />);
