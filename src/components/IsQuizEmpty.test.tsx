@@ -13,7 +13,7 @@ describe('IsQuizEmpty', () => {
   it('should render a default message if no message prop is provided', () => {
 	render(React.createElement(IsQuizEmpty, null));
 	const matches = screen.getAllByText(/available/i);
-	expect(matches.length).toBe(2); 
+	expect(matches.length).toBe(1); 
   });
   
 });

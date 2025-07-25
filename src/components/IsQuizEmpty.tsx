@@ -8,7 +8,7 @@ export const IsQuizEmpty: React.FC<IsQuizEmptyProps> = ({ message = "No quiz que
   return (
     <div className="flex-1 flex items-center justify-center py-8">
       <div className="text-white text-xl">
-        {message}
+        {message || "No quizzes available"}
       </div>
     </div>
   );

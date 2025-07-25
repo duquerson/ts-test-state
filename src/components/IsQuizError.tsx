@@ -14,12 +14,12 @@ export const IsQuizError: React.FC<Props> = ({
   return (
     <section className={BASE_CONTAINER}>
       <div className={CARD_CONTAINER}>
-        <head className="flex-1 flex items-center justify-center py-8">
+        <article className="flex-1 flex items-center justify-center py-8">
           {/* Mensaje de error */}
           <h2 className="text-center text-white font-extrabold text-2xl">
             {message}
           </h2>
-        </head>
+        </article>
 
         <article className="grid grid-cols-3 gap-2 items-center min-h-[60px] mt-4">
           
