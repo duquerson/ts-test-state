@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.68% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.68% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,28 +104,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import type React from "react";
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span></td><td class="text"><pre class="prettyprint lang-js">import type React from "react";
 import type { QuestionType } from "../types/store";
 import {AnswersQuestion} from './AnswersQuestion'
 &nbsp;
@@ -146,12 +146,12 @@ export const Question: React.FC&lt;QuestionProps&gt; = ({ currentQuestion }) =&g
           {questionText}
         &lt;/h2&gt;
       &lt;/header&gt;
-      {<span class="branch-0 cbranch-no" title="branch not covered" >code &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;section className="w-full"&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;pre className="bg-gray-800 text-green-400 p-4 rounded-lg overflow-auto text-sm font-mono whitespace-pre-wrap shadow-lg border border-gray-700 transition-colors duration-300 hover:shadow-xl max-h-32 min-h-[80px]"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;code&gt;{code}&lt;/code&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/pre&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/section&gt;</span>
+      {code &amp;&amp; (
+        &lt;section className="w-full"&gt;
+          &lt;pre className="bg-gray-800 text-green-400 p-4 rounded-lg overflow-auto text-sm font-mono whitespace-pre-wrap shadow-lg border border-gray-700 transition-colors duration-300 hover:shadow-xl max-h-32 min-h-[80px]"&gt;
+            &lt;code data-testid="question-code"&gt;{code}&lt;/code&gt;
+          &lt;/pre&gt;
+        &lt;/section&gt;
       )}
 		&lt;AnswersQuestion answer={answer} correctAnswer={correctAnswer} /&gt;
     &lt;/article&gt;
@@ -163,7 +163,7 @@ export const Question: React.FC&lt;QuestionProps&gt; = ({ currentQuestion }) =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-25T19:12:25.105Z
+                at 2025-07-25T19:58:46.449Z
             </div>
         <script src="../prettify.js"></script>
         <script>

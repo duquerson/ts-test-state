@@ -24,3 +24,4 @@ pnpm-debug.log*
 .idea/
  #lock package.json
  package-lock.js
+ coverage/

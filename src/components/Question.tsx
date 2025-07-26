@@ -1,5 +1,5 @@
 import type React from "react";
-import type { QuestionType } from "../types/store";
+import type { QuestionType } from "../types/quiz.store";
 import {AnswersQuestion} from './AnswersQuestion'
 
 
@@ -22,7 +22,7 @@ export const Question: React.FC<QuestionProps> = ({ currentQuestion }) => {
       {code && (
         <section className="w-full">
           <pre className="bg-gray-800 text-green-400 p-4 rounded-lg overflow-auto text-sm font-mono whitespace-pre-wrap shadow-lg border border-gray-700 transition-colors duration-300 hover:shadow-xl max-h-32 min-h-[80px]">
-            <code>{code}</code>
+            <code data-testid="question-code">{code}</code>
           </pre>
         </section>
       )}

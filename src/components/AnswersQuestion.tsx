@@ -1,6 +1,6 @@
-import { useStore } from '../store/store';
+import { useStore } from '../store/quiz.store';
 import { getAnswerButtonClasses } from '../utils/classQuestion';
-import type { QuestionType } from '../types/store';
+import type { QuestionType } from '../types/quiz.store';
 
 type AnswersQuestionProps = {
 	answer: QuestionType['answer'];
@@ -29,6 +29,7 @@ export const AnswersQuestion = ({answer, correctAnswer}:AnswersQuestionProps)=>{
 		  <li key={option.id} className="transition-opacity duration-300 ease-in-out">
 			<button
 			  disabled={hasBeenAnswered}
+			  data-testid={`answer-button-${option.id}`}
 			  onClick={() => answerQuestion(indexQuestion, option.id)}
 			  className={getAnswerButtonClasses(hasBeenAnswered, isCorrectAnswer, isUserAnswer)}
 			>

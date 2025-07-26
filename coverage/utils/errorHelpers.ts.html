@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,52 +85,52 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { FetchError } from "../types/api";
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span></td><td class="text"><pre class="prettyprint lang-js">import type { FetchError } from "../types/api";
 &nbsp;
-<span class="cstat-no" title="statement not covered" >const statusMessages: Record&lt;number, string&gt; = {</span>
-<span class="cstat-no" title="statement not covered" >  400: "There was an issue with the quiz data format.",</span>
-<span class="cstat-no" title="statement not covered" >  500: "The server encountered an error while fetching questions.",</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+const statusMessages: Record&lt;number, string&gt; = {
+  400: "There was an issue with the quiz data format.",
+  500: "The server encountered an error while fetching questions.",
+};
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export const getQuizErrorMessage= (error?: FetchError | null): string | null =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  if (!error) return null;</span>
+export const getQuizErrorMessage= (error?: FetchError | null): string | null =&gt; {
+  if (!error) return null;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  const fallbackMessage = "An unexpected error occurred.";</span>
+  const fallbackMessage = "An unexpected error occurred.";
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  const errorMessage =</span>
-<span class="cstat-no" title="statement not covered" >    (error.statusCode &amp;&amp; statusMessages[error.statusCode]) ||</span>
-<span class="cstat-no" title="statement not covered" >    error.message ||</span>
-<span class="cstat-no" title="statement not covered" >    fallbackMessage;</span>
+  const errorMessage =
+    (error.statusCode &amp;&amp; statusMessages[error.statusCode]) ||
+    error.message ||
+    fallbackMessage;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  console.error("Quiz Component Error:", error);</span>
+  console.error("Quiz Component Error:", error);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return errorMessage;</span>
-<span class="cstat-no" title="statement not covered" >}</span></pre></td></tr></table></pre>
+  return errorMessage;
+}</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-25T19:12:25.105Z
+                at 2025-07-25T19:58:46.449Z
             </div>
         <script src="../prettify.js"></script>
         <script>

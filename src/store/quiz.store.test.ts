@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { useStore } from './store';
+import { useStore } from './quiz.store';
 
 // Reset the store before each test to ensure a clean state
 const { getState, setState } = useStore;

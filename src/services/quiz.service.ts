@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import type { QuestionType } from "../types/store";
+import type { QuestionType } from "../types/quiz.store";
 import type { FetchError } from "../types/api";
 import {QuestionsArraySchema} from '../schemas/question.schema'
 

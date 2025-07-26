@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { getQuizQuestions } from "../services/quiz.service";
 import { Question } from "./Question";
-import { useStore } from "../store/store";
+import { useStore } from "../store/quiz.store";
 import { BASE_CONTAINER, BUTTON_DIRECTIONS, CARD_CONTAINER, DISABLE_CLASS } from "../const/CONST";
 import IsQuizLoanding from './IsQuizLoanding'
 import {IsQuizEmpty} from "./IsQuizEmpty"; 
 import {IsQuizError} from "./IsQuizError";
 import { getQuizErrorMessage } from "../utils/errorHelpers";
-import type { QuestionType } from "../types/store";
+import type { QuestionType } from "../types/quiz.store";
 import type {FetchError} from "../types/api" 
 
 export const CardQuiz: React.FC = () => {

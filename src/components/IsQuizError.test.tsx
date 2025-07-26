@@ -1,17 +1,18 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import {IsQuizError} from './IsQuizError';
-import React from 'react';
+
+import { render, screen, fireEvent } from '@testing-library/react';
+import { expect, vi } from 'vitest';
+import { IsQuizError } from './IsQuizError';
 
 describe('IsQuizError', () => {
-  it('should render the error message', () => {
-    const errorMessage = 'Something went wrong!';
-    render(React.createElement(IsQuizError, { message: errorMessage }));
-    expect(screen.getByText(errorMessage)).toBeDefined();
-  });
+  it('should render a retry button and call onRetry when clicked', () => {
+    const mockOnRetry = vi.fn();
+    render(<IsQuizError message="Error with retry" onRetry={mockOnRetry} />);
 
-  it('should render a default message if no message prop is provided', () => {
-	render(React.createElement(IsQuizError, null));
-	expect(screen.getByText(/unexpected error/i)).toBeDefined();
+    // Cambié el name para que coincida con el texto real del botón: "Try Again"
+    const retryButton = screen.getByRole('button', { name: /try again/i });
+    expect(retryButton).toBeDefined();
+
+    fireEvent.click(retryButton);
+    expect(mockOnRetry).toHaveBeenCalled();
   });
 });

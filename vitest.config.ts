@@ -15,6 +15,7 @@ export default getViteConfig({
         "src/types/**",
         "src/pages/*.astro",
         "src/layouts/*.astro",
+		"src/components/Home.astro",
         "src/components/IntroQuiz.tsx"], // opcional
 	  },
     // Vitest configuration options

@@ -1,61 +1,164 @@
+import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { AnswersQuestion } from './AnswersQuestion';
-import { useStore } from '../store/store';
-import { beforeEach, expect, vi } from 'vitest';
+import { expect, vi } from 'vitest';
+import { CardQuiz } from './CardQuiz';
 
-// Mock useStore
 vi.mock('../store/store', () => ({
   useStore: vi.fn(),
 }));
 
-// Mock getAnswerButtonClasses to return a simple class string
-vi.mock('../utils/classQuestion', () => ({
-  getAnswerButtonClasses: vi.fn(() => 'mocked-class'),
+vi.mock('@tanstack/react-query', () => ({
+  useQuery: vi.fn(),
 }));
 
-describe('AnswersQuestion', () => {
-  const mockAnswerQuestion = vi.fn();
+vi.mock('./IsQuizLoanding', () => ({
+  default: () => <div data-testid="loading" />,
+}));
+
+vi.mock('./IsQuizEmpty', () => ({
+  IsQuizEmpty: ({ message }: { message: string }) => (
+    <div data-testid="empty">{message}</div>
+  ),
+}));
+
+vi.mock('./IsQuizError', () => ({
+  IsQuizError: ({ message, onRetry }: { message: string; onRetry: () => void }) => (
+    <div data-testid="error">
+      <span>{message}</span>
+      <button onClick={onRetry}>Retry</button>
+    </div>
+  ),
+}));
+
+vi.mock('./Question', () => ({
+  Question: ({ currentQuestion }: { currentQuestion: any }) => (
+    <div data-testid="question">{currentQuestion?.question}</div>
+  ),
+}));
+
+import { useStore } from '../store/quiz.store';
+import { useQuery } from '@tanstack/react-query';
+
+describe('CardQuiz component', () => {
+  const mockRefetch = vi.fn();
+  const mockDecrease = vi.fn();
+  const mockIncrease = vi.fn();
+  const mockReset = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it('renders loading state', () => {
+    (useQuery as any).mockReturnValue({
+      data: undefined,
+      isLoading: true,
+      isError: false,
+      error: null,
+      refetch: mockRefetch,
+    });
+
+    // mock useStore con valores default
     (useStore as any).mockReturnValue({
       indexQuestion: 0,
-      answeredQuestions: {},
-      answerQuestion: mockAnswerQuestion,
+      decreaseQuestion: mockDecrease,
+      increaseQuestion: mockIncrease,
+      resetQuizUI: mockReset,
     });
+
+    render(<CardQuiz />);
+    expect(screen.getByTestId('loading')).toBeInTheDocument();
   });
 
-  const mockAnswers = [
-    { id: 1, text: 'Answer A' },
-    { id: 2, text: 'Answer B' },
-    { id: 3, text: 'Answer C' },
-  ];
-
-  it('renders all answer buttons', () => {
-    render(<AnswersQuestion answer={mockAnswers} correctAnswer={2} />);
-    mockAnswers.forEach((a) => {
-      expect(screen.getByText(a.text)).toBeInTheDocument();
+  it('renders error state and retries', () => {
+    const error = { message: 'Error!', statusCode: 500 };
+    (useQuery as any).mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isError: true,
+      error,
+      refetch: mockRefetch,
     });
-  });
 
-  it('calls answerQuestion on click if not answered yet', () => {
-    render(<AnswersQuestion answer={mockAnswers} correctAnswer={2} />);
-    const button = screen.getByText('Answer A');
-    fireEvent.click(button);
-    expect(mockAnswerQuestion).toHaveBeenCalledWith(0, 1);
-  });
-
-  it('disables buttons if already answered', () => {
     (useStore as any).mockReturnValue({
       indexQuestion: 0,
-      answeredQuestions: { 0: 1 },
-      answerQuestion: mockAnswerQuestion,
+      decreaseQuestion: mockDecrease,
+      increaseQuestion: mockIncrease,
+      resetQuizUI: mockReset,
     });
 
-    render(<AnswersQuestion answer={mockAnswers} correctAnswer={2} />);
-    const buttons = screen.getAllByRole('button');
-    buttons.forEach((btn) => {
-      expect(btn).toBeDisabled();
+    render(<CardQuiz />);
+    expect(screen.getByTestId('error')).toBeInTheDocument();
+    expect(screen.getByText(/server encountered an error/i)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText(/Retry/i));
+    expect(mockRefetch).toHaveBeenCalled();
+  });
+
+  it('renders empty state if no questions', () => {
+    (useQuery as any).mockReturnValue({
+      data: [],
+      isLoading: false,
+      isError: false,
+      error: null,
+      refetch: mockRefetch,
     });
+
+    (useStore as any).mockReturnValue({
+      indexQuestion: 0,
+      decreaseQuestion: mockDecrease,
+      increaseQuestion: mockIncrease,
+      resetQuizUI: mockReset,
+    });
+
+    render(<CardQuiz />);
+    expect(screen.getByTestId('empty')).toBeInTheDocument();
+    expect(screen.getByText(/no quiz questions available/i)).toBeInTheDocument();
+  });
+
+  it('renders current question and navigation buttons', () => {
+    const quizData = [
+      { question: 'Question 1', answer: ['a', 'b'], correctAnswer: 'a' },
+      { question: 'Question 2', answer: ['c', 'd'], correctAnswer: 'c' },
+      { question: 'Question 3', answer: ['e', 'f'], correctAnswer: 'e' },
+    ];
+
+    (useQuery as any).mockReturnValue({
+      data: quizData,
+      isLoading: false,
+      isError: false,
+      error: null,
+      refetch: mockRefetch,
+    });
+
+    // indexQuestion en medio para habilitar botones
+    (useStore as any).mockReturnValue({
+      indexQuestion: 1,
+      decreaseQuestion: mockDecrease,
+      increaseQuestion: mockIncrease,
+      resetQuizUI: mockReset,
+    });
+
+    render(<CardQuiz />);
+
+    const backButton = screen.getByText(/Back/i);
+    const resetButton = screen.getByText(/Reset Quiz/i);
+    const nextButton = screen.getByText(/Next/i);
+
+    expect(backButton).toBeEnabled();
+    expect(resetButton).toBeEnabled();
+    expect(nextButton).toBeEnabled();
+
+    fireEvent.click(backButton);
+    expect(mockDecrease).toHaveBeenCalled();
+
+    fireEvent.click(resetButton);
+    expect(mockRefetch).toHaveBeenCalled();
+    expect(mockReset).toHaveBeenCalled();
+
+    fireEvent.click(nextButton);
+    expect(mockIncrease).toHaveBeenCalled();
+
+    expect(screen.getByTestId('question')).toHaveTextContent('Question 2');
   });
 });
