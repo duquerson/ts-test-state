@@ -17,7 +17,8 @@
 		"rules": {
         "no-tabs": "off",
         "indent": ["error", "tab"],
-        "quotes": ["error", "single"]
+        "quotes": ["error", "single"],
+		"@typescript-eslint/triple-slash-reference": "off"
       }
 	  },
 	  {
@@ -50,7 +51,7 @@
 	  "node": true
 	},
 	"rules": {
-	  
+	  "@typescript-eslint/triple-slash-reference": "off",
 	  "quotes": ["error", "single"],
 	  "indent": ["error", "tab"],
 	  "no-tabs": "off"
