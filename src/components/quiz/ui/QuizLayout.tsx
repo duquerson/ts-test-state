@@ -1,5 +1,7 @@
 import type { JSX } from 'react'
+
 import type { QuestionType } from '../../../types/quiz'
+
 import { Button } from './Button'
 import { Question } from './Question'
 import { QuizProgress } from './QuizProgress'

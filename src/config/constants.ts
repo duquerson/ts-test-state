@@ -31,7 +31,6 @@ const ANSWER_CLASSES = {
 
 export { BUTTON_CLASSES, BUTTON_COLORS, ANSWER_CLASSES }
 
-
 /*
 let baseClasses = "w-full p-4 text-left text-md rounded-lg border  cursor-pointer transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50";
 		  let buttonClass = "";
@@ -45,4 +44,4 @@ let baseClasses = "w-full p-4 text-left text-md rounded-lg border  cursor-pointe
 			}
 		  } else {
 			buttonClass = 'bg-white/5 border-white/20 text-blue-100 hover:bg-white/10 hover:border-white/30 hover:scale-105 hover:shadow-lg active:scale-95';
-		  }*/
+		  } */
