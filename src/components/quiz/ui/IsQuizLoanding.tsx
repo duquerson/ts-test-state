@@ -1,5 +1,3 @@
-
-
 export const IsQuizLoading: React.FC = () => {
 	const BASE_CONTAINER = 'w-full max-w-3xl mx-auto px-4'
 	const CARD_CONTAINER = 'bg-slate-800 rounded-2xl p-4 shadow-md'

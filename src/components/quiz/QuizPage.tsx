@@ -1,7 +1,9 @@
 import type { JSX } from 'react'
+
 import { useQuiz } from '../../hooks/useQuiz'
 import type { FetchError } from '../../types/api'
 import { getQuizErrorMessage } from '../../utils/errorHelpers'
+
 import { IsQuizError } from './ui/IsQuizError'
 import IsQuizLoanding from './ui/IsQuizLoanding'
 import { QuizLayout } from './ui/QuizLayout'
