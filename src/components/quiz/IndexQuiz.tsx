@@ -4,14 +4,14 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-import { CardQuiz } from './CardQuiz'
+import { QuizPage } from '../quiz/QuizPage'
 const queryClient = new QueryClient()
 
 export const IntroQuiz: React.FC = () => {
 	return (
 		<>
 			<QueryClientProvider client={queryClient}>
-				<CardQuiz />
+				<QuizPage />
 				<ReactQueryDevtools />
 			</QueryClientProvider>
 

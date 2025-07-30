@@ -1,4 +1,4 @@
-import { BASE_CONTAINER, CARD_CONTAINER } from '../const/CONST'
+import { BASE_CONTAINER, CARD_CONTAINER } from '../../../const/CONST'
 
 export const IsQuizLoading: React.FC = () => {
 	return (

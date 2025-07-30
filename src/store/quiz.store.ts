@@ -1,25 +1,38 @@
 import { create } from 'zustand'
 
-type StoreState = {
-	indexQuestion: number
-	answeredQuestions: Record<number, number | null | undefined>
-	resetQuizUI: () => void
-	increaseQuestion: () => void
-	decreaseQuestion: () => void
-	answerQuestion: (ID: number, Index: number) => void
+type QuizState = {
+	currentQuestionIndex: number
+	userAnswers: Record<number, number | null | undefined>
+	resetQuiz: () => void
+	goToNextQuestion: () => void
+	goToPreviousQuestion: () => void
+	saveAnswer: (selectedAnswerId: number) => void
 }
 
-export const useStore = create<StoreState>((set) => ({ // return always object
-	indexQuestion: 0,
-	answeredQuestions: {},
-	resetQuizUI: () => { set({ indexQuestion: 0, answeredQuestions: {} }) },
-	increaseQuestion: () => { set((state) => ({ indexQuestion: state.indexQuestion + 1 })) },
-	decreaseQuestion: () => { set((state) => ({ indexQuestion: Math.max(state.indexQuestion - 1, 0) })) },
-	answerQuestion: (questionId, answerId) => {
+export const useQuizStore = create<QuizState>((set, get) => ({
+	currentQuestionIndex: 0,
+	userAnswers: {},
+
+	resetQuiz: () => {
+		set({ currentQuestionIndex: 0, userAnswers: {} })
+	},
+
+	goToNextQuestion: () => {
+		set((state) => ({ currentQuestionIndex: state.currentQuestionIndex + 1 }))
+	},
+
+	goToPreviousQuestion: () => {
 		set((state) => ({
-			answeredQuestions: {
-				...state.answeredQuestions,
-				[questionId]: answerId
+			currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0)
+		}))
+	},
+
+	saveAnswer: (selectedAnswerId) => {
+		const { currentQuestionIndex } = get()
+		set((state) => ({
+			userAnswers: {
+				...state.userAnswers,
+				[currentQuestionIndex]: selectedAnswerId
 			}
 		}))
 	}
