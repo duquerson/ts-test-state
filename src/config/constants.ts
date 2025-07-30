@@ -30,3 +30,19 @@ const ANSWER_CLASSES = {
 } as const
 
 export { BUTTON_CLASSES, BUTTON_COLORS, ANSWER_CLASSES }
+
+
+/*
+let baseClasses = "w-full p-4 text-left text-md rounded-lg border  cursor-pointer transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50";
+		  let buttonClass = "";
+		  if (hasBeenAnswered) {
+			if (isCorrectAnswer) {
+			  buttonClass = 'bg-green-600 text-white border-green-600 shadow-lg scale-105 animate-pulse';
+			} else if (isUserAnswer) {
+			  buttonClass = 'bg-red-600 text-white border-red-600 shadow-lg scale-105 animate-bounce';
+			} else {
+			  buttonClass = 'bg-white/20 text-gray-300 border-gray-400 opacity-60 cursor-not-allowed';
+			}
+		  } else {
+			buttonClass = 'bg-white/5 border-white/20 text-blue-100 hover:bg-white/10 hover:border-white/30 hover:scale-105 hover:shadow-lg active:scale-95';
+		  }*/

@@ -1,7 +1,5 @@
 import type { JSX } from 'react'
-
 import type { QuestionType } from '../../../types/quiz'
-
 import { Button } from './Button'
 import { Question } from './Question'
 import { QuizProgress } from './QuizProgress'
@@ -28,11 +26,10 @@ type propsQuiz = {
 
 export const QuizLayout = ({ data, handlers }: propsQuiz): JSX.Element => {
 	const { currentQuestion, isAnswered } = data
-
 	const { handleAnswerSelect, getAnswerClass } = handlers
 
-	const BASE_CONTAINER = 'w-full max-w-3xl mx-auto px-4'
-	const CARD_CONTAINER = 'bg-slate-800 rounded-2xl p-4 shadow-md'
+	const BASE_CONTAINER = 'max-w-4xl w-full mx-auto min-h-[600px] transition-opacity duration-500 ease-in-out'
+	const CARD_CONTAINER = 'min-h-full p-4 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-xl flex flex-col'
 
 	return (
 		<main className={BASE_CONTAINER}>

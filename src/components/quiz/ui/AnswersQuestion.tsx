@@ -13,13 +13,13 @@ export const AnswersQuestion = ({ answers, handleAnswerSelect, getAnswerClass, i
 	return (
 		<section className="flex-1 flex items-start">
 			<ul className="space-y-3 w-full">
-				{answers.map((answer) => {
+				{answers.map((answer, id) => {
 					return (
-						<li key={answer.id} className="transition-opacity duration-300 ease-in-out">
+						<li key={answer.id} className={`transition-all duration-300 ease-in-out transform animate-slide-in-up delay-${id * 100}`}>
 							<button
 								disabled={isAnswered}
 								onClick={() => { handleAnswerSelect(answer.id) }}
-								className={getAnswerClass(answer.id)}
+								className={`w-full p-4 text-left text-md rounded-lg border  cursor-pointer transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 ${getAnswerClass(answer.id)}`}
 							>
 								{answer.text}
 							</button>
