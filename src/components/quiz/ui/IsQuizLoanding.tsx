@@ -1,6 +1,8 @@
-import { BASE_CONTAINER, CARD_CONTAINER } from '../../../const/CONST'
+
 
 export const IsQuizLoading: React.FC = () => {
+	const BASE_CONTAINER = 'w-full max-w-3xl mx-auto px-4'
+	const CARD_CONTAINER = 'bg-slate-800 rounded-2xl p-4 shadow-md'
 	return (
 		<section className={BASE_CONTAINER}>
 			<div className={CARD_CONTAINER}>

@@ -1,7 +1,5 @@
 import type { JSX } from 'react'
-
 import type { QuestionType } from '../../../types/quiz'
-
 import { AnswersQuestion } from './AnswersQuestion'
 
 type propsQuiz = {
