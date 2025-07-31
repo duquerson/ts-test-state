@@ -20,7 +20,7 @@ export type returnUseQuiz = {
 	state: {
 		isQuizLoading: boolean
 		isQuizError: boolean
-		quizError: FetchError | null
+		errorMessage: string | null | undefined
 	}
 	handlers: {
 		handleAnswerSelect: (answer: number) => void

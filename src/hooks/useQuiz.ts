@@ -5,6 +5,7 @@ import { getQuizQuestions } from '../services/quiz.service'
 import { useQuizStore } from '../store/quiz.store'
 import type { FetchError } from '../types/api'
 import type { QuestionType, returnUseQuiz } from '../types/quiz'
+import { getQuizErrorMessage } from '../utils/errorHelpers'
 
 export const useQuiz = (): returnUseQuiz => {
 	// Query para obtener las preguntas
@@ -29,6 +30,9 @@ export const useQuiz = (): returnUseQuiz => {
 		resetQuiz,
 		saveAnswer
 	} = useQuizStore()
+
+	// Obtener mensaje de error formateado
+	const errorMessage = isQuizError ? getQuizErrorMessage(quizError) : ''
 
 	const currentQuestion = allQuestions[currentQuestionIndex] || null
 
@@ -108,7 +112,7 @@ export const useQuiz = (): returnUseQuiz => {
 		state: {
 			isQuizLoading,
 			isQuizError,
-			quizError
+			errorMessage
 		},
 		// Funciones
 		handlers: {

@@ -4,7 +4,7 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-import { QuizPage } from '../quiz/QuizPage'
+import { QuizPage } from './QuizPageComponent'
 const queryClient = new QueryClient()
 
 export const IntroQuiz: React.FC = () => {

@@ -3,7 +3,7 @@ import type { JSX } from 'react'
 import { Button } from './Button'
 
 type Props = {
-	message?: string
+	message?: string | null | undefined
 	onRetry: () => void
 	retryText?: string
 }

@@ -5,7 +5,7 @@ const BUTTON_COLORS = {
 	reset: { bg: 'bg-orange-500', hover: 'hover:bg-orange-600' },
 	next: { bg: 'bg-[#3178C6]', hover: 'hover:bg-[#235A97]' },
 	result: { bg: 'bg-orange-500', hover: 'hover:bg-orange-600' }
-}
+} as const
 
 // Todas las clases organizadas
 const BUTTON_CLASSES = {
@@ -20,7 +20,7 @@ const BUTTON_CLASSES = {
 		visible: 'visible scale-100 hover:scale-105',
 		hidden: 'invisible scale-95'
 	}
-}
+} as const
 
 const ANSWER_CLASSES = {
 	isCorrect: 'bg-green-600 text-white border-green-600',
