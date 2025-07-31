@@ -1,5 +1,7 @@
 import type { JSX } from 'react'
+
 import { useQuiz } from '../../hooks/useQuiz'
+
 import { IsQuizError } from './ui/IsQuizError'
 import IsQuizLoanding from './ui/IsQuizLoading'
 import { QuizLayout } from './ui/QuizLayout'

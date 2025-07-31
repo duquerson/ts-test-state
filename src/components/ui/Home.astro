@@ -1,11 +1,25 @@
+---
+import { Image } from 'astro:assets'
+const svg = '/logo-ts.svg';
+---
+
 <section class="w-full max-w-2xl p-8 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-xl">
-	<div class="flex flex-col justify-center items-center mb-4 text-center space-y-6">
-		<img src="/logo-ts.svg" alt="logo typescript">
+	<main class="flex flex-col justify-center items-center mb-4 text-center space-y-6">
+
+		<Image
+			src={svg}
+			alt="logo typescript"
+			width={70}
+			height={70}
+			class="rounded-md object-cover hover:shadow-xl transition-all duration-300"
+			decoding="async"
+			loading="lazy"
+		/>
 		<h1 class="text-4xl font-bold text-white mb-2">TypeScript Quiz</h1>
 		<p class="text-xl text-blue-100 mb-8">Test your TypeScript knowledge</p>
-	</div>
+	</main>
 
-	<div class="flex justify-center">
+	<footer class="flex justify-center">
 		<a class='h-12 w-30 bg-[#3178C6] hover:bg-[#235A97] hover:scale-110 hover:text-black text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl rounded-lg transition-all duration-300 cursor-pointer flex justify-center items-center' href='/quiz'>¡Start!</a>
-	</div>
+	</footer>
 </section>

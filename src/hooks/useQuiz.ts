@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 
 import { ANSWER_CLASSES } from '../config/constants'
 import { getQuizQuestions } from '../services/quiz.service'
@@ -33,14 +34,36 @@ export const useQuiz = (): returnUseQuiz => {
 
 	// Obtener mensaje de error formateado
 	const errorMessage = isQuizError ? getQuizErrorMessage(quizError) : ''
+	// Memoize derived state
+	const currentQuestion = useMemo(
+		() => allQuestions[currentQuestionIndex] || null,
+		[allQuestions, currentQuestionIndex]
+	)
 
-	const currentQuestion = allQuestions[currentQuestionIndex] || null
+	const currentAnswer = useMemo(
+		() => userAnswers[currentQuestionIndex],
+		[userAnswers, currentQuestionIndex]
+	)
 
-	// Respuesta actual del usuario
-	const currentAnswer = userAnswers[currentQuestionIndex]
+	const isAnswered = useMemo(
+		() => currentAnswer !== undefined,
+		[currentAnswer]
+	)
 
-	// Verificar si ya respondió esta pregunta
-	const isAnswered = currentAnswer !== undefined
+	const isLastQuestion = useMemo(
+		() => Array.isArray(allQuestions) && currentQuestionIndex === allQuestions.length - 1,
+		[allQuestions, currentQuestionIndex]
+	)
+
+	const isFirstQuestion = useMemo(
+		() => currentQuestionIndex === 0,
+		[currentQuestionIndex]
+	)
+
+	const totalQuestions = useMemo(
+		() => allQuestions.length,
+		[allQuestions]
+	)
 
 	// Función para determinar la clase CSS de una respuesta
 	const getAnswerClass = (optionValue: number): string => {
@@ -78,14 +101,6 @@ export const useQuiz = (): returnUseQuiz => {
 		void refetch()
 		resetQuiz()
 	}
-	// Verificar si es la última pregunta
-	const isLastQuestion = Array.isArray(allQuestions) &&
-	currentQuestionIndex === allQuestions.length - 1
-
-	// Verificar si es la primera pregunta
-	const isFirstQuestion = currentQuestionIndex === 0
-	// total Questions
-	const totalQuestions = allQuestions.length - 1
 	// Calcular progreso
 	/* const progress = allQuestions.length > 0
 		? ((currentQuestionIndex + 1) / allQuestions.length) * 100
