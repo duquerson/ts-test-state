@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-
 import { ANSWER_CLASSES } from '../config/constants'
 import { getQuizQuestions } from '../services/quiz.service'
 import { useQuizUIStore } from '../store/quiz.store'
@@ -43,21 +42,25 @@ export const useQuiz = (): returnUseQuiz => {
 		[allQuestions, currentQuestionIndex]
 	)
 	// Respuesta actual
-	const currentAnswer = useMemo(
-		() => answers.byQuestionId[currentQuestionIndex],
-		[answers, currentQuestionIndex]
-	)
+	const currentAnswer = useMemo(() => {
+		if (!currentQuestion) return undefined
+		const answer = answers.byQuestionId[currentQuestion.id]
+		return answer
+	}, [answers, currentQuestion])
+
 	// Determinar si la pregunta actual ya ha sido respondida
-	const isAnswered = useMemo(
-		() => answers.byQuestionId[currentQuestionIndex] !== undefined,
-		[answers, currentQuestionIndex]
-	)
+	const isAnswered = useMemo(() => {
+		if (!currentQuestion) return false
+		const answer = answers.byQuestionId[currentQuestion.id]
+		return answer !== undefined
+	}, [answers, currentQuestion])
+
 	// Determinar el total de preguntas
 	const totalQuestions = useMemo(
 		() => allQuestions.length,
 		[allQuestions]
 	)
-
+	
 	const isFirstQuestion = currentQuestionIndex === 0
 	const isLastQuestion = currentQuestionIndex === totalQuestions - 1
 
@@ -94,8 +97,8 @@ export const useQuiz = (): returnUseQuiz => {
 	}
 
 	const handleReset = (): void => {
-		void refetch()
 		resetQuiz()
+		void refetch()
 	}
 
 	return {
