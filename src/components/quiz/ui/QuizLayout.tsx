@@ -1,3 +1,4 @@
+
 import type { JSX } from 'react'
 
 import type { QuestionType } from '../../../types/quiz'
@@ -9,7 +10,6 @@ import { QuizProgress } from './QuizProgress'
 type propsQuiz = {
 	data: {
 		currentQuestion: QuestionType | null
-		userAnswers: Record<number, number | null | undefined>
 		currentQuestionIndex: number
 		isFirstQuestion: boolean
 		isLastQuestion: boolean
@@ -20,7 +20,7 @@ type propsQuiz = {
 		handleAnswerSelect: (answer: number) => void
 		handleReset: () => void
 		handleRetry: () => void
-		goToNextQuestion: () => void
+		goToNextQuestion: (allQuestions: number) => void
 		goToPreviousQuestion: () => void
 		getAnswerClass: (optionValue: number) => string
 	}
@@ -62,7 +62,7 @@ export const QuizLayout = ({ data, handlers }: propsQuiz): JSX.Element => {
 					/>
 					<Button
 						text="Next"
-						onClick={handlers.goToNextQuestion}
+						onClick={() => { handlers.goToNextQuestion(data.totalQuestions) }}
 						variant="next"
 						position="end"
 						disabled={data.isLastQuestion}

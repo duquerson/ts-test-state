@@ -26,7 +26,7 @@ export const Button = ({
 
 	return (
 		<button
-			onClick={onClick}
+			onClick={() => { onClick() }}
 			disabled={disabled}
 			className={`
         ${BUTTON_CLASSES.base}

@@ -1,39 +1,75 @@
 import { create } from 'zustand'
+import type { StateCreator } from 'zustand'
+import { devtools } from 'zustand/middleware'
 
-type QuizState = {
-	currentQuestionIndex: number
-	userAnswers: Record<number, number | null | undefined>
-	resetQuiz: () => void
-	goToNextQuestion: () => void
-	goToPreviousQuestion: () => void
-	saveAnswer: (selectedAnswerId: number) => void
+import type { QuizUIState, QuizUIActions } from '../types/quiz'
+
+type QuizUIStore = QuizUIState & QuizUIActions
+
+const initialState: QuizUIState = {
+	currentQuestionIndex: 0,
+	answers: {
+		byQuestionId: {}
+	}
 }
 
-export const useQuizStore = create<QuizState>((set, get) => ({
-	currentQuestionIndex: 0,
-	userAnswers: {},
+const QuizStore: StateCreator<QuizUIStore> = (set, get) => ({
+	...initialState,
 
-	resetQuiz: () => {
-		set({ currentQuestionIndex: 0, userAnswers: {} })
+	saveAnswer: (answerId) => {
+		const { currentQuestionIndex: questionId } = get()
+		set((state) => ({
+			answers: {
+				...state.answers,
+				byQuestionId: {
+					...state.answers.byQuestionId,
+					[questionId]: answerId
+				}
+			}
+		}))
 	},
 
-	goToNextQuestion: () => {
-		set((state) => ({ currentQuestionIndex: state.currentQuestionIndex + 1 }))
+	clearAnswer: () => {
+		const { currentQuestionIndex: questionId } = get()
+		set((state) => {
+			const { [questionId]: removed, ...rest } = state.answers.byQuestionId
+			return {
+				answers: {
+					...state.answers,
+					byQuestionId: rest
+				}
+			}
+		})
+	},
+
+	setCurrentQuestionIndex: (index) => {
+		set({ currentQuestionIndex: index })
+	},
+
+	goToNextQuestion: (totalQuestions) => {
+		const { currentQuestionIndex } = get()
+		if (currentQuestionIndex < totalQuestions - 1) {
+			set({ currentQuestionIndex: currentQuestionIndex + 1 })
+		}
 	},
 
 	goToPreviousQuestion: () => {
-		set((state) => ({
-			currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0)
-		}))
+		const { currentQuestionIndex } = get()
+		if (currentQuestionIndex > 0) {
+			set({ currentQuestionIndex: currentQuestionIndex - 1 })
+		}
 	},
 
-	saveAnswer: (selectedAnswerId) => {
-		const { currentQuestionIndex } = get()
-		set((state) => ({
-			userAnswers: {
-				...state.userAnswers,
-				[currentQuestionIndex]: selectedAnswerId
-			}
-		}))
+	resetQuiz: () => {
+		set(initialState)
 	}
-}))
+})
+
+// for the devtools
+const quizDevtools = devtools(QuizStore,
+	{
+		name: 'quiz-ui-store'
+	})
+export const useQuizUIStore = create<QuizUIStore>()(
+	quizDevtools
+)

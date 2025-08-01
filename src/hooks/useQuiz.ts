@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import { ANSWER_CLASSES } from '../config/constants'
 import { getQuizQuestions } from '../services/quiz.service'
-import { useQuizStore } from '../store/quiz.store'
+import { useQuizUIStore } from '../store/quiz.store'
 import type { FetchError } from '../types/api'
 import type { QuestionType, returnUseQuiz } from '../types/quiz'
 import { getQuizErrorMessage } from '../utils/errorHelpers'
@@ -19,51 +19,47 @@ export const useQuiz = (): returnUseQuiz => {
 	} = useQuery<QuestionType[], FetchError>({
 		queryKey: ['quizTypescript'],
 		queryFn: getQuizQuestions,
-		staleTime: 60 * 1000
+		staleTime: 60 * 1000,
+		retry: 2,
+		retryDelay: 1000
 	})
 
 	// Estado del quiz desde el store
 	const {
 		currentQuestionIndex,
-		userAnswers,
-		goToNextQuestion,
-		goToPreviousQuestion,
+		answers,
+		saveAnswer,
 		resetQuiz,
-		saveAnswer
-	} = useQuizStore()
+		goToNextQuestion, // recibe parametro totalQuestions
+		goToPreviousQuestion
+	} = useQuizUIStore()
 
 	// Obtener mensaje de error formateado
 	const errorMessage = isQuizError ? getQuizErrorMessage(quizError) : ''
-	// Memoize derived state
+
+	// Pregunta actual
 	const currentQuestion = useMemo(
-		() => allQuestions[currentQuestionIndex] || null,
+		() => allQuestions[currentQuestionIndex],
 		[allQuestions, currentQuestionIndex]
 	)
-
+	// Respuesta actual
 	const currentAnswer = useMemo(
-		() => userAnswers[currentQuestionIndex],
-		[userAnswers, currentQuestionIndex]
+		() => answers.byQuestionId[currentQuestionIndex],
+		[answers, currentQuestionIndex]
 	)
-
+	// Determinar si la pregunta actual ya ha sido respondida
 	const isAnswered = useMemo(
-		() => currentAnswer !== undefined,
-		[currentAnswer]
+		() => answers.byQuestionId[currentQuestionIndex] !== undefined,
+		[answers, currentQuestionIndex]
 	)
-
-	const isLastQuestion = useMemo(
-		() => Array.isArray(allQuestions) && currentQuestionIndex === allQuestions.length - 1,
-		[allQuestions, currentQuestionIndex]
-	)
-
-	const isFirstQuestion = useMemo(
-		() => currentQuestionIndex === 0,
-		[currentQuestionIndex]
-	)
-
+	// Determinar el total de preguntas
 	const totalQuestions = useMemo(
 		() => allQuestions.length,
 		[allQuestions]
 	)
+
+	const isFirstQuestion = currentQuestionIndex === 0
+	const isLastQuestion = currentQuestionIndex === totalQuestions - 1
 
 	// Función para determinar la clase CSS de una respuesta
 	const getAnswerClass = (optionValue: number): string => {
@@ -101,22 +97,11 @@ export const useQuiz = (): returnUseQuiz => {
 		void refetch()
 		resetQuiz()
 	}
-	// Calcular progreso
-	/* const progress = allQuestions.length > 0
-		? ((currentQuestionIndex + 1) / allQuestions.length) * 100
-		: 0 */
-
-	// Calcular estadísticas
-	/* const answeredQuestions = Object.keys(userAnswers).length
-	const correctAnswers = Object.entries(userAnswers).filter(
-		([index, answer]) => allQuestions[Number(index)]?.correctAnswer === answer
-	).length */
 
 	return {
 		// Data del quiz
 		data: {
 			currentQuestion,
-			userAnswers,
 			currentQuestionIndex,
 			isLastQuestion,
 			isFirstQuestion,

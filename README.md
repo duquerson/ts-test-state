@@ -33,7 +33,7 @@ The application should now be running at `http://localhost:4321`.
 *   Fetch quiz data from a remote API instead of a local JSON file.
 *   Add different question types (e.g., multiple-choice with multiple correct answers, true/false).
 *   Improve the user interface with more advanced styling and animations.
-*   Add unit tests for components, state management, and utility functions.
+*   Add comprehensive unit tests for components, state management, and utility functions.
 
 ## What I Learned Building This Project
 
@@ -44,6 +44,8 @@ Building this project provided valuable experience in:
 *   Structuring a project with Astro and React components.
 *   Implementing basic user interface interactions.
 *   Using Tailwind CSS for styling.
+*   Writing unit tests with Vitest and React Testing Library.
+*   Implementing error boundaries in React.
 
 ## Technology Stack Used
 
@@ -54,4 +56,6 @@ Building this project provided valuable experience in:
 *   **Tailwind CSS:** A utility-first CSS framework for styling.
 *   **Axios:** A promise-based HTTP client for fetching data.
 *   **ESLint:** Used for enforcing code style and identifying potential issues.
+*   **Vitest:** A fast unit testing framework.
+*   **@testing-library/react:** A library for testing React components.
 

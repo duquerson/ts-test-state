@@ -12,5 +12,3 @@ export const QuestionSchema = z.object({
 	answer: z.array(AnswerSchema).min(2, 'Debe haber al menos 2 respuestas'),
 	correctAnswer: z.number().min(0, 'El ID de respuesta correcta debe ser válido')
 })
-
-export const QuestionsArraySchema = z.array(QuestionSchema)

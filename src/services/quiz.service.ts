@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { z } from 'zod'
 
-import { QuestionsArraySchema } from '../schemas/question.schema'
+import { QuestionSchema } from '../schemas/question.schema'
 import type { QuestionType } from '../types/quiz'
 
 const NUM_QUESTIONS_TO_FETCH = 10
@@ -28,7 +29,7 @@ export const getQuizQuestions = async (): Promise<QuestionType[]> => {
 				throw new QuizFetchError('Empty response from server', 500)
 			}
 
-			const parseResult = QuestionsArraySchema.safeParse(response.data)
+			const parseResult = z.array(QuestionSchema).safeParse(response.data)
 
 			if (!parseResult.success) {
 				throw new QuizFetchError(
