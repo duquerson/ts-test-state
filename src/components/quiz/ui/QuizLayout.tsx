@@ -1,4 +1,3 @@
-
 import type { JSX } from 'react'
 
 import type { QuestionType } from '../../../types/quiz'
