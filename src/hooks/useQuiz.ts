@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
+
 import { ANSWER_CLASSES } from '../config/constants'
 import { getQuizQuestions } from '../services/quiz.service'
 import { useQuizUIStore } from '../store/quiz.store'
@@ -60,7 +61,7 @@ export const useQuiz = (): returnUseQuiz => {
 		() => allQuestions.length,
 		[allQuestions]
 	)
-	
+
 	const isFirstQuestion = currentQuestionIndex === 0
 	const isLastQuestion = currentQuestionIndex === totalQuestions - 1
 
