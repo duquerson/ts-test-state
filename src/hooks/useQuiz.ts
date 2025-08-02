@@ -91,7 +91,6 @@ export const useQuiz = (): returnUseQuiz => {
 			saveAnswer(questionId, answer)
 		}
 	}
-	
 
 	const handleRetry = (): void => {
 		void refetch()

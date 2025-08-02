@@ -1,5 +1,7 @@
 import type { JSX } from 'react'
+
 import type { QuestionType } from '../../../types/quiz'
+
 import { AnswersQuestion } from './AnswersQuestion'
 
 type propsQuiz = {
@@ -18,11 +20,11 @@ export const Question = ({ question, isAnswered, handleAnswerSelect, getAnswerCl
 				</h2>
 			</header>
 			<section className="w-full h-32">
-			{question.code != null && question.code !== '' && (
+				{question.code != null && question.code !== '' && (
 					<pre className="bg-gray-800 text-green-400 p-4 rounded-lg overflow-auto text-sm font-mono whitespace-pre-wrap shadow-lg border border-gray-700 transition-colors duration-300 hover:shadow-xl max-h-32 min-h-[80px]">
 						<code data-testid="question-code">{question.code}</code>
 					</pre>
-			)}
+				)}
 			</section>
 			<AnswersQuestion questionId={question.id} answers={question.answer} handleAnswerSelect={handleAnswerSelect} getAnswerClass={getAnswerClass} isAnswered={isAnswered} />
 		</article>
