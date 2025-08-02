@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { ANSWER_CLASSES } from '../config/constants'
 import { getQuizQuestions } from '../services/quiz.service'
@@ -7,6 +7,13 @@ import { useQuizUIStore } from '../store/quiz.store'
 import type { FetchError } from '../types/api'
 import type { QuestionType, returnUseQuiz } from '../types/quiz'
 import { getQuizErrorMessage } from '../utils/errorHelpers'
+
+const QUIZ_QUERY_CONFIG = {
+	queryKey: ['quizTypescript'] as const,
+	staleTime: 60 * 1000, // 1 minuto
+	retry: 2,
+	retryDelay: 1000
+} as const
 
 export const useQuiz = (): returnUseQuiz => {
 	// Query para obtener las preguntas
@@ -17,11 +24,8 @@ export const useQuiz = (): returnUseQuiz => {
 		error: quizError,
 		refetch
 	} = useQuery<QuestionType[], FetchError>({
-		queryKey: ['quizTypescript'],
-		queryFn: getQuizQuestions,
-		staleTime: 60 * 1000,
-		retry: 2,
-		retryDelay: 1000
+		...QUIZ_QUERY_CONFIG,
+		queryFn: getQuizQuestions
 	})
 
 	// Estado del quiz desde el store
@@ -30,76 +34,81 @@ export const useQuiz = (): returnUseQuiz => {
 		answers,
 		saveAnswer,
 		resetQuiz,
-		goToNextQuestion, // recibe parametro totalQuestions
+		goToNextQuestion,
 		goToPreviousQuestion
 	} = useQuizUIStore()
 
-	// Obtener mensaje de error formateado
-	const errorMessage = isQuizError ? getQuizErrorMessage(quizError) : ''
+	const totalQuestions = useMemo(() => allQuestions.length, [allQuestions])
 
-	// Pregunta actual
 	const currentQuestion = useMemo(
-		() => allQuestions[currentQuestionIndex],
+		() => allQuestions[currentQuestionIndex] || null,
 		[allQuestions, currentQuestionIndex]
 	)
-	// Respuesta actual
+
 	const currentAnswer = useMemo(() => {
 		if (!currentQuestion) return undefined
-		const answer = answers.byQuestionId[currentQuestion.id]
-		return answer
+		return answers.byQuestionId[currentQuestion.id]
 	}, [answers, currentQuestion])
 
-	// Determinar si la pregunta actual ya ha sido respondida
 	const isAnswered = useMemo(() => {
 		if (!currentQuestion) return false
-		const answer = answers.byQuestionId[currentQuestion.id]
-		return answer !== undefined
+		return answers.byQuestionId[currentQuestion.id] !== undefined
 	}, [answers, currentQuestion])
-
-	// Determinar el total de preguntas
-	const totalQuestions = useMemo(
-		() => allQuestions.length,
-		[allQuestions]
-	)
 
 	const isFirstQuestion = currentQuestionIndex === 0
 	const isLastQuestion = currentQuestionIndex === totalQuestions - 1
+	const errorMessage = isQuizError ? getQuizErrorMessage(quizError) : ''
 
 	// Función para determinar la clase CSS de una respuesta
-	const getAnswerClass = (optionValue: number): string => {
-		// Si no hay pregunta actual, usar clase por defecto
-		if (!currentQuestion) return ANSWER_CLASSES.default
-
-		// Si no ha respondido aún, usar clase por defecto
-		if (!isAnswered) return ANSWER_CLASSES.default
-
-		// Si ya respondió, mostrar resultado
-		if (optionValue === currentQuestion.correctAnswer) {
-			// Esta es la respuesta correcta
-			return ANSWER_CLASSES.isCorrect
-		} else if (optionValue === currentAnswer) {
-			// Esta es la respuesta que eligió el usuario (incorrecta)
-			return ANSWER_CLASSES.isSelected
-		} else {
-			// Las demás opciones se muestran deshabilitadas
-			return ANSWER_CLASSES.isAnswered
+	// useCallback para evitar recrear la función en cada render
+	const getAnswerClass = useCallback((optionValue: number): string => {
+		if (!currentQuestion || !isAnswered) {
+			return ANSWER_CLASSES.default
 		}
-	}
 
-	const handleAnswerSelect = (questionId: number, answer: number): void => {
+		// Determinar el tipo de respuesta
+		const isCorrectAnswer = optionValue === currentQuestion.correctAnswer
+		const isUserSelection = optionValue === currentAnswer
+
+		if (isCorrectAnswer) {
+			return ANSWER_CLASSES.isCorrect
+		}
+
+		if (isUserSelection) {
+			return ANSWER_CLASSES.isSelected
+		}
+
+		return ANSWER_CLASSES.isAnswered
+	}, [currentQuestion, isAnswered, currentAnswer])
+
+	// Handlers con useCallback para optimización de rendimiento
+	const handleAnswerSelect = useCallback((questionId: number, answer: number): void => {
 		if (!isAnswered) {
 			saveAnswer(questionId, answer)
 		}
-	}
+	}, [isAnswered, saveAnswer])
 
-	const handleRetry = (): void => {
+	const handleRetry = useCallback((): void => {
 		void refetch()
-	}
+	}, [refetch])
 
-	const handleReset = (): void => {
+	const handleReset = useCallback((): void => {
 		resetQuiz()
 		void refetch()
-	}
+	}, [resetQuiz, refetch])
+
+	// Wrapper para goToNextQuestion que incluye validación
+	const optimizedGoToNextQuestion = useCallback((): void => {
+		if (!isLastQuestion) {
+			goToNextQuestion(totalQuestions)
+		}
+	}, [isLastQuestion, goToNextQuestion, totalQuestions])
+
+	const optimizedGoToPreviousQuestion = useCallback((): void => {
+		if (!isFirstQuestion) {
+			goToPreviousQuestion()
+		}
+	}, [isFirstQuestion, goToPreviousQuestion])
 
 	return {
 		// Data del quiz
@@ -122,8 +131,8 @@ export const useQuiz = (): returnUseQuiz => {
 			handleAnswerSelect,
 			handleReset,
 			handleRetry,
-			goToNextQuestion,
-			goToPreviousQuestion,
+			goToNextQuestion: optimizedGoToNextQuestion,
+			goToPreviousQuestion: optimizedGoToPreviousQuestion,
 			getAnswerClass
 		}
 	}

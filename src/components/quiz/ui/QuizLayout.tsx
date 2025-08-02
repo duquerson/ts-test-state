@@ -19,7 +19,7 @@ type propsQuiz = {
 		handleAnswerSelect: (questionId: number, answer: number) => void
 		handleReset: () => void
 		handleRetry: () => void
-		goToNextQuestion: (allQuestions: number) => void
+		goToNextQuestion: () => void
 		goToPreviousQuestion: () => void
 		getAnswerClass: (optionValue: number) => string
 	}
@@ -61,7 +61,7 @@ export const QuizLayout = ({ data, handlers }: propsQuiz): JSX.Element => {
 					/>
 					<Button
 						text="Next"
-						onClick={() => { handlers.goToNextQuestion(data.totalQuestions) }}
+						onClick={() => { handlers.goToNextQuestion() }}
 						variant="next"
 						position="end"
 						disabled={data.isLastQuestion}

@@ -24,7 +24,7 @@ export const IsQuizError = ({
 					</h2>
 				</header>
 				<nav
-					className="grid grid-cols-3 gap-2 items-center min-h-[60px] mt-4"
+					className="grid justify-center items-center min-h-[60px] mt-4"
 					aria-label="Controles del quiz"
 				>
 					<Button text={retryText} onClick={onRetry} variant='reset' position='center'/>

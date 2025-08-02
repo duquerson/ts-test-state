@@ -56,7 +56,7 @@ export type returnUseQuiz = {
 		handleAnswerSelect: (questionId: number, answerId: number) => void
 		handleReset: () => void
 		handleRetry: () => void
-		goToNextQuestion: (allQuestions: number) => void
+		goToNextQuestion: () => void
 		goToPreviousQuestion: () => void
 		getAnswerClass: (answerId: number) => string
 	}
