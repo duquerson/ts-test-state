@@ -1,13 +1,11 @@
 import type { JSX } from 'react'
-
 import type { QuestionType } from '../../../types/quiz'
-
 import { AnswersQuestion } from './AnswersQuestion'
 
 type propsQuiz = {
 	question: QuestionType
 	isAnswered: boolean
-	handleAnswerSelect: (answer: number) => void
+	handleAnswerSelect: (quetiosnId: number, answer: number) => void
 	getAnswerClass: (optionValue: number) => string
 }
 
@@ -19,14 +17,14 @@ export const Question = ({ question, isAnswered, handleAnswerSelect, getAnswerCl
 					{question.question}
 				</h2>
 			</header>
+			<section className="w-full h-32">
 			{question.code != null && question.code !== '' && (
-				<section className="w-full">
 					<pre className="bg-gray-800 text-green-400 p-4 rounded-lg overflow-auto text-sm font-mono whitespace-pre-wrap shadow-lg border border-gray-700 transition-colors duration-300 hover:shadow-xl max-h-32 min-h-[80px]">
 						<code data-testid="question-code">{question.code}</code>
 					</pre>
-				</section>
 			)}
-			<AnswersQuestion answers={question.answer} handleAnswerSelect={handleAnswerSelect} getAnswerClass={getAnswerClass} isAnswered={isAnswered} />
+			</section>
+			<AnswersQuestion questionId={question.id} answers={question.answer} handleAnswerSelect={handleAnswerSelect} getAnswerClass={getAnswerClass} isAnswered={isAnswered} />
 		</article>
 	)
 }

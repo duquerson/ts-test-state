@@ -16,7 +16,7 @@ type propsQuiz = {
 		isAnswered: boolean
 	}
 	handlers: {
-		handleAnswerSelect: (answer: number) => void
+		handleAnswerSelect: (questionId: number, answer: number) => void
 		handleReset: () => void
 		handleRetry: () => void
 		goToNextQuestion: (allQuestions: number) => void
@@ -30,7 +30,7 @@ export const QuizLayout = ({ data, handlers }: propsQuiz): JSX.Element => {
 	const { handleAnswerSelect, getAnswerClass } = handlers
 
 	const BASE_CONTAINER = 'max-w-4xl w-full mx-auto min-h-[600px] transition-opacity duration-500 ease-in-out'
-	const CARD_CONTAINER = 'min-h-full p-4 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-xl flex flex-col'
+	const CARD_CONTAINER = 'h-full p-4 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-xl flex flex-col'
 
 	return (
 		<main className={BASE_CONTAINER}>

@@ -16,8 +16,7 @@ const initialState: QuizUIState = {
 const QuizStore: StateCreator<QuizUIStore> = (set, get) => ({
 	...initialState,
 
-	saveAnswer: (answerId) => {
-		const { currentQuestionIndex: questionId } = get()
+	saveAnswer: (questionId, answerId) => {
 		set((state) => ({
 			answers: {
 				...state.answers,
@@ -29,8 +28,7 @@ const QuizStore: StateCreator<QuizUIStore> = (set, get) => ({
 		}))
 	},
 
-	clearAnswer: () => {
-		const { currentQuestionIndex: questionId } = get()
+	clearAnswer: (questionId) => {
 		set((state) => {
 			const { [questionId]: removed, ...rest } = state.answers.byQuestionId
 			return {

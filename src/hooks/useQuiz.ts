@@ -86,12 +86,12 @@ export const useQuiz = (): returnUseQuiz => {
 		}
 	}
 
-	const handleAnswerSelect = (answer: number): void => {
-		// Solo permitir responder si no ha respondido aún
-		if (!isAnswered && currentQuestion) {
-			saveAnswer(answer)
+	const handleAnswerSelect = (questionId: number, answer: number): void => {
+		if (!isAnswered) {
+			saveAnswer(questionId, answer)
 		}
 	}
+	
 
 	const handleRetry = (): void => {
 		void refetch()

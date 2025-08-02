@@ -15,8 +15,8 @@ export type QuizUIState = {
 }
 export type QuizUIActions = {
 	// Acciones para respuestas
-	saveAnswer: (answerId: number) => void
-	clearAnswer: () => void
+	saveAnswer: (questionId: number, answerId: number) => void
+	clearAnswer: (questionId: number) => void
 
 	// Acciones de navegación
 	setCurrentQuestionIndex: (index: number) => void
@@ -53,7 +53,7 @@ export type returnUseQuiz = {
 		errorMessage: string | null
 	}
 	handlers: {
-		handleAnswerSelect: (answerId: number) => void
+		handleAnswerSelect: (questionId: number, answerId: number) => void
 		handleReset: () => void
 		handleRetry: () => void
 		goToNextQuestion: (allQuestions: number) => void

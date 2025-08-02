@@ -34,7 +34,7 @@ export const Button = ({
         ${colors.bg}
         ${colors.hover}
         ${positionClass}
-        ${stateClass}
+        ${stateClass} 
       `}
 		>
 			{text}
