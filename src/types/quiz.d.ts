@@ -45,7 +45,9 @@ export type returnUseQuiz = {
 		isFirstQuestion: boolean
 		totalQuestions: number
 		isAnswered: boolean
-		stats?: QuizStats
+		correctAnswersCount: number
+		incorrectAnswersCount: number
+		allQuestionsAnswered: boolean
 	}
 	state: {
 		isQuizLoading: boolean

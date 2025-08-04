@@ -59,6 +59,34 @@ export const useQuiz = (): returnUseQuiz => {
 	const isLastQuestion = currentQuestionIndex === totalQuestions - 1
 	const errorMessage = isQuizError ? getQuizErrorMessage(quizError) : ''
 
+	const answeredQuestionsCount = useMemo(() => {
+		return Object.keys(answers.byQuestionId).length
+	}, [answers])
+
+	const allQuestionsAnswered = useMemo(() => {
+		return answeredQuestionsCount === totalQuestions && totalQuestions > 0
+	}, [answeredQuestionsCount, totalQuestions])
+
+	const { correctAnswersCount, incorrectAnswersCount } = useMemo(() => {
+		let correct = 0
+		let incorrect = 0
+
+		for (const questionId in answers.byQuestionId) {
+			const userAnswerId = answers.byQuestionId[questionId]
+			const question = allQuestions.find(q => q.id === Number(questionId))
+
+			if (question) {
+				if (userAnswerId === question.correctAnswer) {
+					correct++
+				} else {
+					incorrect++
+				}
+			}
+		}
+
+		return { correctAnswersCount: correct, incorrectAnswersCount: incorrect }
+	}, [answers, allQuestions])
+
 	// Función para determinar la clase CSS de una respuesta
 	// useCallback para evitar recrear la función en cada render
 	const getAnswerClass = useCallback((optionValue: number): string => {
@@ -118,7 +146,10 @@ export const useQuiz = (): returnUseQuiz => {
 			isLastQuestion,
 			isFirstQuestion,
 			totalQuestions,
-			isAnswered
+			isAnswered,
+			correctAnswersCount,
+			incorrectAnswersCount,
+			allQuestionsAnswered
 		},
 		// Estados
 		state: {
