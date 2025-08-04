@@ -55,7 +55,7 @@ export const QuizLayout = ({ data, handlers }: propsQuiz): JSX.Element => {
 						? (
 							<section className="flex flex-col items-center justify-center h-full ">
 								<div className='mb-4 text-center'>
-									<h2 className="text-4xl font-bold  tracking-widest mb-4 cu text-white text-center transition-opacity duration-300 ease-in-out leading-tight">Resultados del Cuestionario</h2>
+									<h2 className="text-4xl font-bold  tracking-widest mb-4 cu text-white text-center transition-opacity duration-300 ease-in-out leading-tight">Resultados del Quiz</h2>
 									<p className="text-lg mt-4 font-semibold tracking-wider text-green-400">Preguntas Correctas: {correctAnswersCount}</p>
 									<p className="text-lg text-red-400 font-semibold tracking-wider">Preguntas Incorrectas: {incorrectAnswersCount}</p>
 									<p className="text-lg text-blue-400 font-semibold tracking-wider">Total de Preguntas: {totalQuestions}</p>
