@@ -15,11 +15,12 @@
 		  "sourceType": "module"
 		},
 		"rules": {
-        "no-tabs": "off",
-        "indent": ["error", "tab"],
-        "quotes": ["error", "single"],
-		"@typescript-eslint/triple-slash-reference": "off"
-      }
+			"no-tabs": "off",
+			"indent": ["error", "tab"],
+			"quotes": ["error", "single"],
+			"@typescript-eslint/triple-slash-reference": "off",
+			"@typescript-eslint/consistent-type-definitions": "off"
+		}
 	  },
 	  {
 		"files": ["*.ts", "*.tsx"],
@@ -29,19 +30,20 @@
 		},
 		"rules": {
 			"no-tabs": "off",
-        "@typescript-eslint/indent": ["error", "tab"],
-		"@typescript-eslint/consistent-type-definitions": "off",
-  		"@typescript-eslint/quotes": ["error", "single"],
-		"@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
-		"import/order": [
-      		"error",
-      		{
-        		"groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
-        		"newlines-between": "always",
-        		"alphabetize": { "order": "asc", "caseInsensitive": true }
-      		}
-    			]
-      	}
+			"@typescript-eslint/indent": ["error", "tab"],
+			"@typescript-eslint/no-floating-promises": "off",
+			"@typescript-eslint/consistent-type-definitions": "off",
+			"@typescript-eslint/quotes": ["error", "single"],
+			"@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
+			"import/order": [
+				"error",
+				{
+					"groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
+					"newlines-between": "always",
+					"alphabetize": { "order": "asc", "caseInsensitive": true }
+				}
+			]
+		}
 	  }
 	],
 	"plugins": ["@typescript-eslint"],
@@ -53,9 +55,9 @@
 	"rules": {
 	  "@typescript-eslint/triple-slash-reference": "off",
 	  "@typescript-eslint/strict-boolean-expressions": "off",
+	  
 	  "quotes": ["error", "single"],
 	  "indent": ["error", "tab"],
 	  "no-tabs": "off"
 	}
-  }
-  
+}

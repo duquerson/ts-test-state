@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import confetti from 'canvas-confetti'
 import { useCallback, useMemo } from 'react'
 
 import { ANSWER_CLASSES } from '../config/constants'
@@ -114,15 +115,38 @@ export const useQuiz = (): returnUseQuiz => {
 		if (!isAnswered) {
 			saveAnswer(questionId, answer)
 		}
-	}, [isAnswered, saveAnswer])
+		if (currentQuestion.correctAnswer === answer) {
+			confetti({
+				particleCount: 80,
+				spread: 100,
+				origin: { y: 0.6 },
+				ticks: 100,
+				decay: 0.85
+
+			})
+		}
+	}, [isAnswered, saveAnswer, currentQuestion])
 
 	const handleRetry = useCallback((): void => {
-		void refetch()
+		refetch().catch(error => {
+			console.error('Error refetching quiz:', error)
+		})
 	}, [refetch])
 
 	const handleReset = useCallback((): void => {
 		resetQuiz()
-		void refetch()
+
+		// Función async interna
+		const performReset = async (): Promise<void> => {
+			try {
+				await refetch()
+			} catch (error) {
+				console.error('Error refetching quiz after reset:', error)
+			}
+		}
+
+		// Ejecutar pero ignorar la promesa
+		void performReset()
 	}, [resetQuiz, refetch])
 
 	// Wrapper para goToNextQuestion que incluye validación
@@ -137,7 +161,6 @@ export const useQuiz = (): returnUseQuiz => {
 			goToPreviousQuestion()
 		}
 	}, [isFirstQuestion, goToPreviousQuestion])
-
 	return {
 		// Data del quiz
 		data: {
