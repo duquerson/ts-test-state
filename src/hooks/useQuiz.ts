@@ -33,10 +33,12 @@ export const useQuiz = (): returnUseQuiz => {
 	const {
 		currentQuestionIndex,
 		answers,
+		showResults,
 		saveAnswer,
 		resetQuiz,
 		goToNextQuestion,
-		goToPreviousQuestion
+		goToPreviousQuestion,
+		setShowResults
 	} = useQuizUIStore()
 
 	const totalQuestions = useMemo(() => allQuestions.length, [allQuestions])
@@ -127,6 +129,12 @@ export const useQuiz = (): returnUseQuiz => {
 		}
 	}, [isAnswered, saveAnswer, currentQuestion])
 
+	
+	const handleshowResults = useCallback((): void=>{
+		//store dispatch
+		setShowResults()
+	}, [showResults])
+
 	const handleRetry = useCallback((): void => {
 		refetch().catch(error => {
 			console.error('Error refetching quiz:', error)
@@ -172,7 +180,8 @@ export const useQuiz = (): returnUseQuiz => {
 			isAnswered,
 			correctAnswersCount,
 			incorrectAnswersCount,
-			allQuestionsAnswered
+			allQuestionsAnswered,
+			showResults
 		},
 		// Estados
 		state: {
@@ -185,6 +194,7 @@ export const useQuiz = (): returnUseQuiz => {
 			handleAnswerSelect,
 			handleReset,
 			handleRetry,
+			handleshowResults,
 			goToNextQuestion: optimizedGoToNextQuestion,
 			goToPreviousQuestion: optimizedGoToPreviousQuestion,
 			getAnswerClass

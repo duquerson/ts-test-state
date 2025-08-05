@@ -8,6 +8,7 @@ type QuestionType = z.infer<typeof QuestionSchema>
 export type { QuestionType, AnswerType }
 
 export type QuizUIState = {
+	showResults: boolean 	// Indica si se deben mostrar los resultados
 	currentQuestionIndex: number 	// Índice de la pregunta actual
 	answers: {
 		byQuestionId: Record<number, number> // Mapa de respuestas por ID de pregunta
@@ -22,7 +23,8 @@ export type QuizUIActions = {
 	setCurrentQuestionIndex: (index: number) => void
 	goToNextQuestion: (totalQuestions: number) => void
 	goToPreviousQuestion: () => void
-
+	// showResults
+	setShowResults: () => void
 	// Reset del quiz
 	resetQuiz: () => void
 }
@@ -48,6 +50,7 @@ export type returnUseQuiz = {
 		correctAnswersCount: number
 		incorrectAnswersCount: number
 		allQuestionsAnswered: boolean
+		showResults: boolean
 	}
 	state: {
 		isQuizLoading: boolean
@@ -58,6 +61,7 @@ export type returnUseQuiz = {
 		handleAnswerSelect: (questionId: number, answerId: number) => void
 		handleReset: () => void
 		handleRetry: () => void
+		handleshowResults: () => void
 		goToNextQuestion: () => void
 		goToPreviousQuestion: () => void
 		getAnswerClass: (answerId: number) => string

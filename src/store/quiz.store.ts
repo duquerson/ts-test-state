@@ -8,6 +8,7 @@ type QuizUIStore = QuizUIState & QuizUIActions
 
 const initialState: QuizUIState = {
 	currentQuestionIndex: 0,
+	showResults: false,
 	answers: {
 		byQuestionId: {}
 	}
@@ -60,6 +61,9 @@ const QuizStore: StateCreator<QuizUIStore> = (set, get) => ({
 
 	resetQuiz: () => {
 		set(initialState)
+	},
+	setShowResults: ()=>{
+		set({showResults: true})
 	}
 })
 
