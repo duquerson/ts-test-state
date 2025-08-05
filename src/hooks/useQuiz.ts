@@ -129,9 +129,8 @@ export const useQuiz = (): returnUseQuiz => {
 		}
 	}, [isAnswered, saveAnswer, currentQuestion])
 
-	
-	const handleshowResults = useCallback((): void=>{
-		//store dispatch
+	const handleshowResults = useCallback((): void => {
+		// store dispatch
 		setShowResults()
 	}, [showResults])
 

@@ -6,7 +6,6 @@ import { Button } from './Button'
 import { Question } from './Question'
 import { QuizProgress } from './QuizProgress'
 
-
 type propsQuiz = {
 	data: {
 		currentQuestion: QuestionType | null
@@ -41,12 +40,10 @@ export const QuizLayout = ({ data, handlers }: propsQuiz): JSX.Element => {
 		incorrectAnswersCount,
 		totalQuestions
 	} = data
-	const { handleAnswerSelect, getAnswerClass, handleshowResults} = handlers
+	const { handleAnswerSelect, getAnswerClass, handleshowResults } = handlers
 
 	const BASE_CONTAINER = 'max-w-4xl w-full mx-auto min-h-[600px] transition-opacity duration-500 ease-in-out'
 	const CARD_CONTAINER = 'h-full p-4 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-xl flex flex-col'
-
-	
 
 	return (
 		<main className={BASE_CONTAINER}>
@@ -97,24 +94,26 @@ export const QuizLayout = ({ data, handlers }: propsQuiz): JSX.Element => {
 							disabled={data.currentQuestionIndex === 0}
 							position="center"
 						/>
-						{isLastQuestion ? (
-							<Button
-								text="Resultados"
-								onClick={handleshowResults}
-								variant="result"
-								position="end"
-								disabled={!data.allQuestionsAnswered}
-							/>
-						) : (
-							<Button
-								text="Next"
-								onClick={handlers.goToNextQuestion}
-								variant="next"
-								position="end"
-								disabled={data.isLastQuestion}
-							/>
-						)}
-						
+						{isLastQuestion
+							? (
+								<Button
+									text="Resultados"
+									onClick={handleshowResults}
+									variant="result"
+									position="end"
+									disabled={!data.allQuestionsAnswered}
+								/>
+							)
+							: (
+								<Button
+									text="Next"
+									onClick={handlers.goToNextQuestion}
+									variant="next"
+									position="end"
+									disabled={data.isLastQuestion}
+								/>
+							)}
+
 					</nav>
 				)}
 				{!showResults && (

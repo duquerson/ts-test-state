@@ -62,8 +62,8 @@ const QuizStore: StateCreator<QuizUIStore> = (set, get) => ({
 	resetQuiz: () => {
 		set(initialState)
 	},
-	setShowResults: ()=>{
-		set({showResults: true})
+	setShowResults: () => {
+		set({ showResults: true })
 	}
 })
 
